@@ -11,5 +11,6 @@ struct block {
 };
 
 struct block *create_block(int x, int y, int w, int h);
+void draw_block(struct block *b);
 
 #endif

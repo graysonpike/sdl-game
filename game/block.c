@@ -11,3 +11,7 @@ struct block *create_block(int x, int y, int w, int h) {
 	b->h = h;
 	return b;
 }
+
+void draw_block(struct block *b) {
+	
+}
