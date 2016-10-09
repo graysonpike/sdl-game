@@ -18,5 +18,7 @@ extern SDL_Renderer *renderer;
 // Initialize SDL (return true if successful, false otherwise)
 void graphics_init();
 void graphics_quit();
+void clear_screen();
+void render();
 
 #endif

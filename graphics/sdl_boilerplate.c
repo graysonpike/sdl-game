@@ -15,7 +15,7 @@ void graphics_init() {
         return;
     }
     window = SDL_CreateWindow(
-        "Selection Sort",         // window title
+        "Selection Sort",             // window title
         SDL_WINDOWPOS_UNDEFINED,      // initial x position
         SDL_WINDOWPOS_UNDEFINED,      // initial y position
         WIDTH,                        // width, in pixels
@@ -38,4 +38,10 @@ void graphics_init() {
 void graphics_quit() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+}
+
+void clear_screen() {
+    // Clear the screen with a white background
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(renderer);
 }
