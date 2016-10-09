@@ -15,7 +15,7 @@ void graphics_init() {
         return;
     }
     window = SDL_CreateWindow(
-        "Selection Sort",             // window title
+        "SDL2 Game",             // window title
         SDL_WINDOWPOS_UNDEFINED,      // initial x position
         SDL_WINDOWPOS_UNDEFINED,      // initial y position
         WIDTH,                        // width, in pixels
