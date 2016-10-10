@@ -39,9 +39,3 @@ void graphics_quit() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
 }
-
-void clear_screen() {
-    // Clear the screen with a white background
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-    SDL_RenderClear(renderer);
-}
