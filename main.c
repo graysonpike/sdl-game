@@ -17,6 +17,8 @@ int main() {
         loop = game_update();
         clear_screen();
         render_entities();
+        render_fps();
+        SDL_RenderPresent(renderer);
     }
 
     graphics_quit();

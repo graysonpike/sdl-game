@@ -1,5 +1,5 @@
 main: main.o sdl_boilerplate.o block.o linked_list.o game.o render.o
-	gcc main.o sdl_boilerplate.o block.o linked_list.o game.o render.o -o main.out -lSDL2
+	gcc main.o sdl_boilerplate.o block.o linked_list.o game.o render.o -o main.out -lSDL2 -lSDL2_ttf
 
 main.o: main.c
 	gcc main.c -c

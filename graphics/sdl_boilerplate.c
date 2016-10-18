@@ -5,6 +5,25 @@
 // extern variables from header file
 SDL_Window *window;
 SDL_Renderer *renderer;
+TTF_Font *font_open_sans = NULL;
+
+bool load_font(TTF_Font **font, char *filename, int size) {
+    // Combline path and filename
+    char filepath[strlen(filename) + 5];
+    strcpy(filepath, "res/");
+    strcat(filepath, filename);
+    *font = TTF_OpenFont(filepath, size);
+    if(*font == NULL) {
+        printf("Error loading font: %s\n", TTF_GetError());
+        return false;
+    }
+    return true;
+}
+
+// Load all resources
+void load_res() {
+    load_font(&font_open_sans, "fonts/open-sans/OpenSans-Regular.ttf", 28);
+}
 
 // Initialize SDL (return true if successful, false otherwise)
 void graphics_init() {
@@ -33,9 +52,39 @@ void graphics_init() {
         printf("Could not init renderer: %s\n", SDL_GetError());
         return;
     }
+
+    // Initialize TTF
+    if(TTF_Init() == -1) {
+        printf("SDL_ttf failed to initialize: %s\n", TTF_GetError());
+        return;
+    }
+
+    load_res();
 }
 
 void graphics_quit() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+}
+
+bool load_font_texture(SDL_Texture **texture, TTF_Font *font, char *text, SDL_Color text_color, int *font_width, int *font_height){
+    *texture = NULL;
+    SDL_Surface *loaded_surface = NULL;
+    // Load surface and convert to texture
+    // TTF_RenderText_Solid = quick & dirty
+    // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
+    // TTF_RenderText_Blended = very slow & antialiased with alpha blending
+    loaded_surface = TTF_RenderText_Blended(font, text, text_color);
+    if(loaded_surface == NULL) {
+        printf("Error loading font surface: %s\n", TTF_GetError());
+        return false;
+    }
+    *texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+    if(*texture == NULL) {
+        printf("Unable to create texture from surface: %s\n", SDL_GetError());
+    }
+    *font_width = loaded_surface->w;
+    *font_height = loaded_surface->h;
+    SDL_FreeSurface(loaded_surface);
+    return true;
 }
