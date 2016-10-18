@@ -60,13 +60,13 @@ void render_fps() {
     SDL_Color color = {0, 0, 0, 255};
 
     char text[15];
-    sprintf(text, "%d", fps);
+    sprintf(text, "FPS: %d", fps);
 
-    load_font_texture(&text_texture, font_open_sans, text, color, &text_width, &text_height);
+    load_font_texture(&text_texture, font_inconsolata, text, color, &text_width, &text_height);
 
     SDL_Rect dst = {
-        WIDTH/2 - text_width/2,
-        HEIGHT/2 - text_height/2,
+        16,
+        16,
         text_width,
         text_height
     };

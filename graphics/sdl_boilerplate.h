@@ -16,7 +16,7 @@ such as initialization and termination
 
 extern SDL_Window *window;
 extern SDL_Renderer *renderer;
-extern TTF_Font *font_open_sans;
+extern TTF_Font *font_inconsolata;
 
 // Initialize SDL (return true if successful, false otherwise)
 void graphics_init();

@@ -5,7 +5,7 @@
 // extern variables from header file
 SDL_Window *window;
 SDL_Renderer *renderer;
-TTF_Font *font_open_sans = NULL;
+TTF_Font *font_inconsolata = NULL;
 
 bool load_font(TTF_Font **font, char *filename, int size) {
     // Combline path and filename
@@ -22,7 +22,7 @@ bool load_font(TTF_Font **font, char *filename, int size) {
 
 // Load all resources
 void load_res() {
-    load_font(&font_open_sans, "fonts/open-sans/OpenSans-Regular.ttf", 28);
+    load_font(&font_inconsolata, "fonts/Inconsolata/Inconsolata-Regular.ttf", 18);
 }
 
 // Initialize SDL (return true if successful, false otherwise)
