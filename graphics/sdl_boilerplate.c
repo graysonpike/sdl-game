@@ -29,7 +29,7 @@ void load_res() {
 void graphics_init() {
 
     // Initialize SDL_video
-    if(SDL_Init(SDL_INIT_VIDEO) < 0) {
+    if(SDL_Init(SDL_INIT_VIDEO || SDL_INIT_TIMER) < 0) {
         printf("Error: Failed to init SDL2: %s\n", SDL_GetError());
         return;
     }

@@ -17,8 +17,8 @@ float frame_times[NUM_FRAMES_AVGD] = { 0 };
 // For counting time between updating FPS shown on screen (see FPS_RENDER_RATE above)
 unsigned int last_ticks = 0;
 // Time deltas to be used in FPS calculation
-unsigned int now_time;
-unsigned int last_time;
+Uint64 now_time;
+Uint64 last_time;
 int current_frame = 0;
 int fps = 0;
 
@@ -39,6 +39,7 @@ void render_fps() {
     last_time = now_time;
     now_time = SDL_GetPerformanceCounter();
     float delta = (now_time - last_time)*1000 / (float)SDL_GetPerformanceFrequency();
+    printf("%f\n", delta);
     frame_times[current_frame++] = delta;
     if(current_frame == NUM_FRAMES_AVGD) {
         current_frame = 0;

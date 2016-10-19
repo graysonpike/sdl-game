@@ -4,8 +4,8 @@
 #include "game.h"
 #include "block.h"
 
-unsigned int now_time;
-unsigned int last_time;
+Uint64 now_time;
+Uint64 last_time;
 
 struct node *blocks;
 
