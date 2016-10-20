@@ -34,16 +34,16 @@ void draw_block(struct block *b) {
 void move_block(struct block *b, char dir, double delta) {
     switch(dir) {
         case 'u':
-            b->y -= BLOCK_SPEED * delta / 1000l;
+            b->y -= BLOCK_SPEED * delta;
             break;
         case 'd':
-            b->y += BLOCK_SPEED * delta / 1000l;
+            b->y += BLOCK_SPEED * delta;
             break;
         case 'l':
-            b->x -= BLOCK_SPEED * delta / 1000l;
+            b->x -= BLOCK_SPEED * delta;
             break;
         case 'r':
-            b->x += BLOCK_SPEED * delta / 1000l;
+            b->x += BLOCK_SPEED * delta;
             break;
         default:
             printf("ERROR: move_block(): Received invalid direction char.\n");

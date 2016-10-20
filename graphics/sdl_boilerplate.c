@@ -29,7 +29,7 @@ void load_res() {
 void graphics_init() {
 
     // Initialize SDL_video
-    if(SDL_Init(SDL_INIT_VIDEO || SDL_INIT_TIMER) < 0) {
+    if(SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
         printf("Error: Failed to init SDL2: %s\n", SDL_GetError());
         return;
     }
@@ -47,7 +47,7 @@ void graphics_init() {
     }
 
     // Initialize Renderer
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if(renderer == NULL) {
         printf("Could not init renderer: %s\n", SDL_GetError());
         return;

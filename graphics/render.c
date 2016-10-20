@@ -39,7 +39,6 @@ void render_fps() {
     last_time = now_time;
     now_time = SDL_GetPerformanceCounter();
     float delta = (now_time - last_time)*1000 / (float)SDL_GetPerformanceFrequency();
-    printf("%f\n", delta);
     frame_times[current_frame++] = delta;
     if(current_frame == NUM_FRAMES_AVGD) {
         current_frame = 0;

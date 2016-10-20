@@ -4,15 +4,16 @@
 #include "game.h"
 #include "block.h"
 
-Uint64 now_time;
 Uint64 last_time;
+Uint64 now_time = 0;
+double delta = 0;
+double total_time = 0;
 
 struct node *blocks;
 
 void game_init() {
 
     now_time = SDL_GetPerformanceCounter();
-    last_time = now_time;
 
     blocks = linked_list_create();
 
@@ -21,6 +22,7 @@ void game_init() {
 }
 
 bool game_update() {
+
     SDL_Event event;
 
     while(SDL_PollEvent(&event) != 0) {
@@ -41,7 +43,9 @@ bool game_update() {
     // Calculate delta times
     last_time = now_time;
     now_time = SDL_GetPerformanceCounter();
-    double delta = (now_time - last_time)*1000 / (double)SDL_GetPerformanceFrequency();
+    delta = (now_time - last_time) / (double) SDL_GetPerformanceFrequency();
+    total_time += delta;
+    printf("TOTAL TIME: %lf\n", total_time);
 
     // Key states
     const Uint8 *key_states = SDL_GetKeyboardState(NULL);
