@@ -3,17 +3,14 @@
 #include <stdbool.h>
 #include "game.h"
 #include "block.h"
-
-Uint64 last_time;
-Uint64 now_time = 0;
-double delta = 0;
-double total_time = 0;
+#include "clock.h"
 
 struct node *blocks;
+float delta;
 
 void game_init() {
 
-    now_time = SDL_GetPerformanceCounter();
+    init_clock();
 
     blocks = linked_list_create();
 
@@ -40,12 +37,7 @@ bool game_update() {
         }
     }
 
-    // Calculate delta times
-    last_time = now_time;
-    now_time = SDL_GetPerformanceCounter();
-    delta = (now_time - last_time) / (double) SDL_GetPerformanceFrequency();
-    total_time += delta;
-    printf("TOTAL TIME: %lf\n", total_time);
+    delta = get_delta();
 
     // Key states
     const Uint8 *key_states = SDL_GetKeyboardState(NULL);

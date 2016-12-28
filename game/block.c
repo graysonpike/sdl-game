@@ -21,14 +21,15 @@ struct block *create_block(double x, double y, int w, int h) {
 }
 
 void draw_block(struct block *b) {
+    // All blocks are black and opaque so far
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0xFF);
-	SDL_Rect bar = {
+	SDL_Rect rect = {
         (int)b->x,
         (int)b->y,
         b->w,
         b->h
     };
-    SDL_RenderFillRect(renderer, &bar);
+    SDL_RenderFillRect(renderer, &rect);
 }
 
 void move_block(struct block *b, char dir, double delta) {
