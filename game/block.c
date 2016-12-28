@@ -16,7 +16,6 @@ struct block *create_block(double x, double y, int w, int h) {
 	b->y = y;
 	b->w = w;
 	b->h = h;
-    printf("%f\n", b->x);
 	return b;
 }
 
