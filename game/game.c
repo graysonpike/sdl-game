@@ -2,7 +2,7 @@
 
 #include <stdbool.h>
 #include "game.h"
-#include "block.h"
+#include "../entities/block.h"
 #include "clock.h"
 
 struct node *blocks;
@@ -43,17 +43,23 @@ bool game_update() {
     const Uint8 *key_states = SDL_GetKeyboardState(NULL);
     struct block *b = (struct block*)linked_list_get_item(blocks, 0);
     if(key_states[SDL_SCANCODE_UP]) {
-        move_block(b, 'u', delta);
+        accel_block(b, BLOCK_ACCEL, 'u');
+        b->moved = true;
     }
     if(key_states[SDL_SCANCODE_DOWN]) {
-        move_block(b, 'd', delta);
+        accel_block(b, BLOCK_ACCEL, 'd');
+        b->moved = true;
     }
     if(key_states[SDL_SCANCODE_LEFT]) {
-        move_block(b, 'l', delta);
+        accel_block(b, BLOCK_ACCEL, 'l');
+        b->moved = true;
     }
     if(key_states[SDL_SCANCODE_RIGHT]) {
-        move_block(b, 'r', delta);
+        accel_block(b, BLOCK_ACCEL, 'r');
+        b->moved = true;
     }
+
+    update_block(b, delta);
 
     return true;
 }

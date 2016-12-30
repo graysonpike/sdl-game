@@ -7,6 +7,9 @@
 #include "../graphics/sdl_boilerplate.h"
 #include "../data_structure/linked_list.h"
 
+// Global friction coefficient
+#define FRICTION (1.0f)
+
 struct node *blocks;
 
 void game_init();

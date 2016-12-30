@@ -11,8 +11,8 @@ such as initialization and termination
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-#define WIDTH 640
-#define HEIGHT 480
+#define WIDTH (640)
+#define HEIGHT (480)
 
 extern SDL_Window *window;
 extern SDL_Renderer *renderer;
