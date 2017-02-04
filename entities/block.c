@@ -17,9 +17,6 @@ struct block *create_block(double x, double y, int w, int h) {
 	b->h = h;
     b->vx = 0;
     b->vy = 0;
-    b->ax = 0;
-    b->ay = 0;
-    b->moved = false;
 	return b;
 }
 
@@ -35,57 +32,39 @@ void draw_block(struct block *b) {
     SDL_RenderFillRect(renderer, &rect);
 }
 
-void accel_block(struct block *b, float mag, char dir) {
-    switch(dir) {
-        case 'u':
-            b->ay -= mag;
-            break;
-        case 'd':
-            b->ay += mag;
-            break;
-        case 'l':
-            b->ax -= mag;
-            break;
-        case 'r':
-            b->ax += mag;
-            break;
-        default:
-            printf("ERROR: move_block(): Received invalid direction char.\n");
-            break;
+void clamp_block(struct block *b) {
+    if(b->x < 0) {
+        b->x = 0;
+    } else if (b->x > WIDTH - b->w) {
+        b->x = WIDTH - b->w;
     }
+    if(b->y < 0) {
+        b->y = 0;
+    } else if (b->y > HEIGHT - b->h) {
+        b->y = HEIGHT - b->h;
+    }
+}
+
+void move_block(struct block *b, float x, float y, float delta) {
+    b->x += x * delta;
+    b->y += y * delta;
+    clamp_block(b);
+}
+
+void accel_block(struct block *b, float x, float y) {
+    b->vx = x;
+    b->vy = y;
 }
 
 void update_block(struct block *b, float delta) {
 
-    // GROUND FRICTION
-    // Only apply ground friction with the ground if
-    // not currently moving (by keypress)
-    if(!b->moved) {
-        // Apply friction to velocity as a deceleration
-        if(b->vx > 0) {
-            accel_block(b, BLOCK_FRICTION * FRICTION, 'l');
-        } else if(b->vx < 0) {
-            accel_block(b, BLOCK_FRICTION * FRICTION, 'r');
-        }
-        if(b->vy > 0) {
-            accel_block(b, BLOCK_FRICTION * FRICTION, 'u');
-        } else if(b->vy < 0) {
-            accel_block(b, BLOCK_FRICTION * FRICTION, 'd');
-        }
-    }
-    // Reset moved flag for next game cycle
-    b->moved = false;
-
     // ACCELERATION & VELOCITY
-    // Apply current acceleration
-    b->vx += (b->ax * delta);
-    b->vy += (b->ay * delta);
     // Apply current velocity
     b->x += (b->vx * delta);
     b->y += (b->vy * delta);
-    // Reset acceleration for next game cycle
-    b->ax = 0;
-    b->ay = 0;
+    // Lower velocity due to friction
+    b->vx *= FRICTION * delta;
+    b->vy *= FRICTION * delta;
 
     // WALL COLLISION
     // If hitting a wall, bounce off going the opposite direction

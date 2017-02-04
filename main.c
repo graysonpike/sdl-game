@@ -14,11 +14,14 @@ int main() {
     bool loop = true;
 
     while(loop) {
+
         loop = game_update();
         clear_screen();
         render_entities();
         render_fps();
+
         SDL_RenderPresent(renderer);
+        
     }
 
     graphics_quit();

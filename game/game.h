@@ -1,5 +1,3 @@
-// Grayson Pike, 2016
-
 #ifndef GAME_H
 #define GAME_H
 
@@ -7,8 +5,8 @@
 #include "../graphics/sdl_boilerplate.h"
 #include "../data_structure/linked_list.h"
 
-// Global friction coefficient
-#define FRICTION (1.0f)
+// Fraction of velocity retained after 1 second
+#define FRICTION (0.05f)
 
 struct node *blocks;
 

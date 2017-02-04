@@ -4,7 +4,7 @@
 #include "render.h"
 #include "sdl_boilerplate.h"
 #include "../game/game.h"
-#include "../game/block.h"
+#include "../entities/block.h"
 #include "../data_structure/linked_list.h"
 
 // Number of frame times to be counted towards the FPS calculation
@@ -24,7 +24,6 @@ int fps = 0;
 
 void render_entities() {
     draw_block((struct block*) linked_list_get_item(blocks, 0));
-    draw_block((struct block*) linked_list_get_item(blocks, 1));
 }
 
 void clear_screen() {
