@@ -1,11 +1,31 @@
 // Grayson Pike, 2016
 
 #include "sdl_boilerplate.h"
+#include <SDL2/SDL_image.h>
 
 // extern variables from header file
 SDL_Window *window;
 SDL_Renderer *renderer;
 TTF_Font *font_inconsolata = NULL;
+
+bool load_texture(SDL_Texture **texture, char *filename){
+    *texture = NULL;
+    SDL_Surface *loaded_surface = NULL;
+    char filepath[strlen(filename) + 32];
+    strcpy(filepath, "res/images/");
+    strcat(filepath, filename);
+    loaded_surface = IMG_Load(filepath);
+    if(loaded_surface == NULL) {
+        printf("Error loading image: %s\n", SDL_GetError());
+        return false;
+    }
+    *texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+    if(texture == NULL) {
+        printf("Unable to create texture from surface: %s\n", SDL_GetError());
+    }
+    SDL_FreeSurface(loaded_surface);
+    return true;
+}
 
 bool load_font(TTF_Font **font, char *filename, int size) {
     // Combline path and filename

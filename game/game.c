@@ -8,6 +8,9 @@
 struct character *player_char;
 float delta;
 
+int mouse_x = 0;
+int mouse_y = 0;
+
 // Character speed in pixels per second
 #define CHAR_SPEED (500.0f)
 
@@ -58,6 +61,15 @@ void move_character(const Uint8 *key_states, struct block *b, float delta) {
 }
 
 
+void handle_mouse_down(SDL_Event event) {
+
+    if(event.button.button == SDL_BUTTON_LEFT) {
+        printf("left click\n");
+    }
+
+}
+
+
 // Main cycle running game logic (inputs, physics, mechanics, etc.)
 bool game_update() {
 
@@ -71,6 +83,16 @@ bool game_update() {
         // ESC or X button close the game
         if(check_for_quit(event)) {
             return false;
+        }
+
+        // Record mouse position when it moves
+        if(event.type == SDL_MOUSEMOTION) {
+            mouse_x = event.motion.x;
+            mouse_y = event.motion.y;
+        }
+
+        if(event.type == SDL_MOUSEBUTTONDOWN) {
+            handle_mouse_down(event);
         }
 
     }

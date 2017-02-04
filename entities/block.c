@@ -9,7 +9,7 @@
 // extern from sdl_boilerplate.h
 SDL_Renderer *renderer;
 
-struct block *create_block(double x, double y, int w, int h) {
+struct block *create_block(double x, double y, int w, int h, double angle) {
 	struct block *b = malloc(sizeof(struct block));
 	b->x = x;
 	b->y = y;
@@ -17,6 +17,7 @@ struct block *create_block(double x, double y, int w, int h) {
 	b->h = h;
     b->vx = 0;
     b->vy = 0;
+    b->angle = angle;
 	return b;
 }
 
@@ -84,4 +85,5 @@ void update_block(struct block *b, float delta) {
         b->vy = -(b->vy) * WALL_FRICTION;
         b->y = HEIGHT - b->h;
     }
+    
 }

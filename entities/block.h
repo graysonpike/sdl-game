@@ -21,11 +21,12 @@ struct block {
     int h;
     float vx;
     float vy;
+    double angle;
 };
 
 // Allocates memory for a new block struct, returns pointer.
 // Make sure to free() this pointer!
-struct block *create_block(double x, double y, int w, int h);
+struct block *create_block(double x, double y, int w, int h, double angle);
 
 // Draw black rect to renderer
 void draw_block(struct block *b);

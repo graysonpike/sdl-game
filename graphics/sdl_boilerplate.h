@@ -21,6 +21,7 @@ extern TTF_Font *font_inconsolata;
 // Initialize SDL (return true if successful, false otherwise)
 void graphics_init();
 void graphics_quit();
+bool load_texture(SDL_Texture **texture, char *filename);
 bool load_font_texture(SDL_Texture **texture, TTF_Font *font, char *text, SDL_Color text_color, int *font_width, int *font_height);
 
 #endif

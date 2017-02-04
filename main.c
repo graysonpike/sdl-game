@@ -4,11 +4,13 @@
 #include <stdbool.h>
 #include "graphics/sdl_boilerplate.h"
 #include "graphics/render.h"
+#include "graphics/resources.h"
 #include "game/game.h"
 
 int main() {
 
     graphics_init();
+    load_images();
     game_init();
 
     bool loop = true;
