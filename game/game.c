@@ -3,8 +3,9 @@
 #include "../entities/block.h"
 #include "clock.h"
 #include "../controls.h"
+#include "../entities/character.h"
 
-struct node *blocks;
+struct character *player_char;
 float delta;
 
 // Character speed in pixels per second
@@ -16,9 +17,8 @@ void game_init() {
     // Used to measure time between cycles
     init_clock();
 
-    // List of blocks
-    blocks = linked_list_create();
-    linked_list_add_item(blocks, create_block(WIDTH/2, HEIGHT/2, 64, 64));
+    // Player character
+    player_char = create_character(WIDTH/2, HEIGHT/2);
 
 }
 
@@ -61,9 +61,6 @@ void move_character(const Uint8 *key_states, struct block *b, float delta) {
 // Main cycle running game logic (inputs, physics, mechanics, etc.)
 bool game_update() {
 
-    // ENTITIES
-    struct block *character = (struct block*)linked_list_get_item(blocks, 0);
-
     // Time since last cycle
     delta = get_delta();
 
@@ -81,9 +78,9 @@ bool game_update() {
     // KEY STATES
     const Uint8 *key_states = SDL_GetKeyboardState(NULL);
     // Move the player character
-    move_character(key_states, character, delta);
+    move_character(key_states, player_char->block, delta);
     // UPDATE ENTITIES
-    update_block(character, delta);
+    update_block(player_char->block, delta);
 
     return true;
 }
@@ -91,7 +88,5 @@ bool game_update() {
 
 // Free memory of game objects
 void game_quit() {
-
-    linked_list_free_list(blocks);
-
+    destroy_character(player_char);
 }

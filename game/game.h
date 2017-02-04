@@ -8,7 +8,7 @@
 // Fraction of velocity retained after 1 second
 #define FRICTION (0.05f)
 
-struct node *blocks;
+struct character *player_char;
 
 void game_init();
 bool game_update();

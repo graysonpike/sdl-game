@@ -4,8 +4,7 @@
 #include "render.h"
 #include "sdl_boilerplate.h"
 #include "../game/game.h"
-#include "../entities/block.h"
-#include "../data_structure/linked_list.h"
+#include "../entities/character.h"
 
 // Number of frame times to be counted towards the FPS calculation
 #define NUM_FRAMES_AVGD 100
@@ -23,7 +22,7 @@ int current_frame = 0;
 int fps = 0;
 
 void render_entities() {
-    draw_block((struct block*) linked_list_get_item(blocks, 0));
+    draw_character(player_char);
 }
 
 void clear_screen() {
