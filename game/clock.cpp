@@ -1,6 +1,9 @@
 #include <SDL2/SDL.h>
 #include "clock.h"
 
+unsigned int last_time;
+unsigned int current_time;
+
 void init_clock() {
     last_time = SDL_GetTicks();
 }

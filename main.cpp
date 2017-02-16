@@ -1,24 +1,24 @@
-// Grayson Pike, 2016
-
-#include <stdio.h>
-#include <stdbool.h>
+#include <iostream>
 #include "graphics/sdl_boilerplate.h"
-#include "graphics/render.h"
 #include "game/game.h"
 
 int main() {
 
     graphics_init();
+    //load_images();
     game_init();
 
     bool loop = true;
 
     while(loop) {
+
+    	// GAME LOOP
         loop = game_update();
-        clear_screen();
-        render_entities();
-        render_fps();
+        //clear_screen();
+        //render_fps();
+
         SDL_RenderPresent(renderer);
+        
     }
 
     graphics_quit();
@@ -26,3 +26,4 @@ int main() {
 
     return 0;
 }
+

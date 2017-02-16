@@ -1,18 +1,41 @@
-// Grayson Pike, 2016
-
 #include "sdl_boilerplate.h"
+
+#define RES_DIR "res/"
 
 // extern variables from header file
 SDL_Window *window;
 SDL_Renderer *renderer;
 TTF_Font *font_inconsolata = NULL;
 
-bool load_font(TTF_Font **font, char *filename, int size) {
-    // Combline path and filename
-    char filepath[strlen(filename) + 5];
-    strcpy(filepath, "res/");
-    strcat(filepath, filename);
-    *font = TTF_OpenFont(filepath, size);
+bool load_texture(SDL_Texture **texture, std::string filename){
+    // Assumes texture is not already created
+    *texture = NULL;
+    // Imagefile -> Surface -> Texture
+    // Empty surface to begin with
+    SDL_Surface *loaded_surface = NULL;
+    // Concatenate filename to resource directory
+    std::string filepath = std::string(RES_DIR) + "images/" + filename;
+    // Load imagefile into surface
+    loaded_surface = IMG_Load(filepath.c_str());
+    // Check first to see if the load failed
+    if(loaded_surface == NULL) {
+        printf("Error loading image: %s\n", SDL_GetError());
+        return false;
+    }
+    // If successful, transfer the surface into the texture
+    *texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
+    if(texture == NULL) {
+        printf("Unable to create texture from surface: %s\n", SDL_GetError());
+    }
+    // Free the temporary surface
+    SDL_FreeSurface(loaded_surface);
+    return true;
+}
+
+bool load_font(TTF_Font **font, std::string filename, int size) {
+    // Concatenate filename to resource directory
+    std::string filepath = std::string(RES_DIR) + "fonts/" + filename;
+    *font = TTF_OpenFont(filepath.c_str(), size);
     if(*font == NULL) {
         printf("Error loading font: %s\n", TTF_GetError());
         return false;
@@ -20,10 +43,12 @@ bool load_font(TTF_Font **font, char *filename, int size) {
     return true;
 }
 
+/* TODO: Replace in graphics/resources.cpp
 // Load all resources
 void load_res() {
     load_font(&font_inconsolata, "fonts/Inconsolata/Inconsolata-Regular.ttf", 18);
 }
+*/
 
 // Initialize SDL (return true if successful, false otherwise)
 void graphics_init() {
@@ -34,7 +59,7 @@ void graphics_init() {
         return;
     }
     window = SDL_CreateWindow(
-        "SDL2 Game",             // window title
+        "SDL2 Game",                  // window title
         SDL_WINDOWPOS_UNDEFINED,      // initial x position
         SDL_WINDOWPOS_UNDEFINED,      // initial y position
         WIDTH,                        // width, in pixels
@@ -59,7 +84,6 @@ void graphics_init() {
         return;
     }
 
-    load_res();
 }
 
 void graphics_quit() {
@@ -67,24 +91,26 @@ void graphics_quit() {
     SDL_DestroyRenderer(renderer);
 }
 
-bool load_font_texture(SDL_Texture **texture, TTF_Font *font, char *text, SDL_Color text_color, int *font_width, int *font_height){
+// Draws text to a blank surface and transfers that to the given texture
+bool load_font_texture(SDL_Texture **texture, TTF_Font *font, std::string text, SDL_Color text_color){
+    // Assume texture is empty
     *texture = NULL;
     SDL_Surface *loaded_surface = NULL;
     // Load surface and convert to texture
     // TTF_RenderText_Solid = quick & dirty
     // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
-    loaded_surface = TTF_RenderText_Blended(font, text, text_color);
+    loaded_surface = TTF_RenderText_Blended(font, text.c_str(), text_color);
     if(loaded_surface == NULL) {
         printf("Error loading font surface: %s\n", TTF_GetError());
         return false;
     }
+    // Transfer surface to texture
     *texture = SDL_CreateTextureFromSurface(renderer, loaded_surface);
     if(*texture == NULL) {
         printf("Unable to create texture from surface: %s\n", SDL_GetError());
     }
-    *font_width = loaded_surface->w;
-    *font_height = loaded_surface->h;
+    // Free temporary surface and exit
     SDL_FreeSurface(loaded_surface);
     return true;
 }

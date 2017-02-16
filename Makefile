@@ -1,23 +1,14 @@
-main: main.o sdl_boilerplate.o block.o linked_list.o game.o render.o clock.o
-	gcc main.o sdl_boilerplate.o block.o linked_list.o game.o render.o clock.o -o main.out -lSDL2 -lSDL2_ttf -std=c99 -g
+main: main.o sdl_boilerplate.o game.o clock.o
+	g++ -g -o main.out main.o sdl_boilerplate.o game.o clock.o  -lSDL2 -lSDL2_image -lSDL2_ttf
 
-main.o: main.c
-	gcc main.c -c -std=c99
+main.o: main.cpp
+	g++ -g -c main.cpp
 
-sdl_boilerplate.o: graphics/sdl_boilerplate.c
-	gcc graphics/sdl_boilerplate.c -c
+sdl_boilerplate.o: graphics/sdl_boilerplate.cpp
+	g++ -g -c graphics/sdl_boilerplate.cpp
 
-block.o: entities/block.c
-	gcc entities/block.c -c -std=c99
+clock.o: game/clock.cpp
+	g++ -g -c game/clock.cpp
 
-linked_list.o: data_structure/linked_list.c
-	gcc data_structure/linked_list.c -c -std=c99
-
-game.o: game/game.c
-	gcc game/game.c -c -std=c99
-
-render.o: graphics/render.c
-	gcc graphics/render.c -c -std=c99
-
-clock.o: game/clock.c
-	gcc game/clock.c -c -std=c99
+game.o: game/game.cpp
+	g++ -g -c game/game.cpp

@@ -1,2 +1,5 @@
 # sdl-game
-Simple top-down game in SDL2 with C
+
+A simple top-down game written in C++ using SDL2.
+
+Currently being re-written in C++
