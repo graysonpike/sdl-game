@@ -1,11 +1,11 @@
 #include "sdl_boilerplate.h"
+#include "resources.h"
 
 #define RES_DIR "res/"
 
 // extern variables from header file
 SDL_Window *window;
 SDL_Renderer *renderer;
-TTF_Font *font_inconsolata = NULL;
 
 bool load_texture(SDL_Texture **texture, std::string filename){
     // Assumes texture is not already created
@@ -43,13 +43,6 @@ bool load_font(TTF_Font **font, std::string filename, int size) {
     return true;
 }
 
-/* TODO: Replace in graphics/resources.cpp
-// Load all resources
-void load_res() {
-    load_font(&font_inconsolata, "fonts/Inconsolata/Inconsolata-Regular.ttf", 18);
-}
-*/
-
 // Initialize SDL (return true if successful, false otherwise)
 void graphics_init() {
 
@@ -84,6 +77,8 @@ void graphics_init() {
         return;
     }
 
+    load_resources();
+
 }
 
 void graphics_quit() {
@@ -92,7 +87,7 @@ void graphics_quit() {
 }
 
 // Draws text to a blank surface and transfers that to the given texture
-bool load_font_texture(SDL_Texture **texture, TTF_Font *font, std::string text, SDL_Color text_color){
+bool load_font_texture(SDL_Texture **texture, std::string font, std::string text, SDL_Color text_color){
     // Assume texture is empty
     *texture = NULL;
     SDL_Surface *loaded_surface = NULL;
@@ -100,7 +95,7 @@ bool load_font_texture(SDL_Texture **texture, TTF_Font *font, std::string text, 
     // TTF_RenderText_Solid = quick & dirty
     // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
-    loaded_surface = TTF_RenderText_Blended(font, text.c_str(), text_color);
+    loaded_surface = TTF_RenderText_Blended(fonts[font], text.c_str(), text_color);
     if(loaded_surface == NULL) {
         printf("Error loading font surface: %s\n", TTF_GetError());
         return false;
