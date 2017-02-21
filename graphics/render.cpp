@@ -1,18 +1,18 @@
-#include <string>
-#include <SDL2/SDL_ttf.h>
 #include "render.h"
-#include "sdl_boilerplate.h"
-#include "resources.h"
 
-void clear_screen() {
+const std::string Renderer::res_dir = "res/";
+
+Renderer::Renderer() {
+
+}
+
+void Renderer::clear_screen() {
     // Clear the screen with a white background
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(renderer);
-}
+};
 
-void render_fps() {
-
-    int fps = 69;
+void Renderer::render_fps() {
 
     // Texture to hold the drawn text
     SDL_Texture *text_texture = NULL;
