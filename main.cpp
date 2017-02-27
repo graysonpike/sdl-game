@@ -1,9 +1,11 @@
-#include <iostream>
 #include "graphics/sdl_boilerplate.h"
-#include "game/game.h"
-#include "graphics/render.h"
+#include "game/world.h"
+#include "input/inputs.h"
 
 int main() {
+
+    Inputs inputs;
+    World world;
 
     graphics_init();
     //load_images();
@@ -13,9 +15,9 @@ int main() {
 
     while(loop) {
 
-    	// GAME LOOP
-        loop = game_update();
-
+        inputs.update();
+    	world.update(&inputs);
+        
         clear_screen();
         render_fps();
 

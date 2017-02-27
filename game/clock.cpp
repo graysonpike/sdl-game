@@ -1,16 +1,21 @@
 #include <SDL2/SDL.h>
 #include "clock.h"
 
-unsigned int last_time;
-unsigned int current_time;
-
-void init_clock() {
+Clock::Clock() {
     last_time = SDL_GetTicks();
 }
 
-float get_delta() {
-    last_time = current_time;
-    current_time = SDL_GetTicks();
+void Clock::reset() {
+	last_time = SDL_GetTicks();
+}
+
+void Clock::tick() {
+    float current_time = SDL_GetTicks();
     // current-last is in ms, divide by 1000 to return seconds
-    return (current_time - last_time) / 1000.0f;
+    delta = (current_time - last_time) / 1000.0f;
+    last_time = current_time;
+}
+
+float Clock::get_delta() {
+    return delta;
 }

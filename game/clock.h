@@ -1,11 +1,22 @@
 #ifndef CLOCK_H
 #define CLOCK_H
 
-// To be called upon initializing the game, sets
-// last_time and current_time to SDL_GetTicks()
-void init_clock();
-// Returns the delta time in seconds since the last
-// time get_delta was called.
-float get_delta();
+class Clock {
+
+	unsigned int last_time;
+	float delta;
+
+public:
+	// Initializes clock
+	// The first delta begins as soon as the clock is created
+	Clock();
+	// Sets last_time to SDL_GetTicks()
+	void reset();
+	// Returns the delta time in seconds between the
+	// last two calls to tick()
+	float get_delta();
+	// Recalculates then resets the delta
+	void tick();
+};
 
 #endif
