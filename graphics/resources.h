@@ -7,7 +7,14 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 
-extern std::map<std::string, TTF_Font*> fonts;
+class Resources {
+
+	std::map<std::string, TTF_Font*> fonts;
+
+public:
+	
+
+};
 
 void load_resources();
 

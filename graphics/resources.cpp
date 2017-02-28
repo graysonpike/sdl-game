@@ -1,9 +1,7 @@
 #include "resources.h"
-#include "sdl_boilerplate.h"
+#include "graphics.h"
 
-std::map<std::string, TTF_Font*> fonts;
-
-void load_resources() {
+void Resources::load_resources() {
 
 	// FONTS
 	fonts["inconsolata"] = NULL;
