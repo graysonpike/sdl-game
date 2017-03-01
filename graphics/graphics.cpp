@@ -2,8 +2,9 @@
 
 const int Graphics::WIDTH = 640, Graphics::HEIGHT = 480;
 
-Graphics::Graphics() : resources(renderer) {
+Graphics::Graphics() {
 	init_sdl();
+    resources = new Resources(renderer);
 	fps = 69;
 }
 
@@ -47,6 +48,7 @@ bool Graphics::init_sdl() {
 Graphics::~Graphics() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    delete resources;
 }
 
 // Draws text to a blank surface and transfers that to the given texture

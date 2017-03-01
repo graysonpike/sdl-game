@@ -12,7 +12,7 @@ class Graphics {
 
 	static const int WIDTH, HEIGHT;
 	int fps;
-	Resources resources;
+	Resources *resources;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
 
