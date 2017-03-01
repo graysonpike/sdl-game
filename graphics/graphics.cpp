@@ -1,7 +1,9 @@
 #include "graphics.h"
 
-const std::string Graphics::RES_DIR = "res/";
 const int Graphics::WIDTH = 640, Graphics::HEIGHT = 480;
+Resources Graphics::resources(Graphics::renderer);
+SDL_Window* Graphics::window;
+SDL_Renderer* Graphics::renderer;
 
 Graphics::Graphics() {
 	init_sdl();
@@ -44,7 +46,7 @@ bool Graphics::init_sdl() {
     return true;
 }
 
-void Graphics::quit() {
+Graphics::~Graphics() {
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
 }
@@ -58,7 +60,7 @@ bool Graphics::load_font_texture(SDL_Texture **texture, std::string font, std::s
     // TTF_RenderText_Solid = quick & dirty
     // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
-    loaded_surface = TTF_RenderText_Blended(fonts[font], text.c_str(), text_color);
+    loaded_surface = TTF_RenderText_Blended(resources.get_font(font), text.c_str(), text_color);
     if(loaded_surface == NULL) {
         printf("Error loading font surface: %s\n", TTF_GetError());
         return false;
@@ -72,3 +74,38 @@ bool Graphics::load_font_texture(SDL_Texture **texture, std::string font, std::s
     SDL_FreeSurface(loaded_surface);
     return true;
 }
+
+void Graphics::render_fps() {
+
+    // Texture to hold the drawn text
+    SDL_Texture *text_texture = NULL;
+    int text_width;
+    int text_height;
+    SDL_Color color = {0, 0, 0, 255};
+
+    std::string text = "FPS: " + std::to_string(fps);
+
+    load_font_texture(&text_texture, "inconsolata", text, color);
+    SDL_QueryTexture(text_texture, NULL, NULL, &text_width, &text_height);
+
+    SDL_Rect dst = {
+        16,
+        16,
+        text_width,
+        text_height
+    };
+
+    SDL_RenderCopy(renderer, text_texture, NULL, &dst);
+
+    SDL_DestroyTexture(text_texture);
+}
+
+void Graphics::present_renderer(){
+	SDL_RenderPresent(renderer);
+}
+
+void Graphics::clear_screen() {
+    // Clear the screen with a white background
+    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    SDL_RenderClear(renderer);
+};

@@ -1,4 +1,4 @@
-#include "graphics/sdl_boilerplate.h"
+#include "graphics/graphics.h"
 #include "game/world.h"
 #include "input/inputs.h"
 
@@ -6,10 +6,7 @@ int main() {
 
     Inputs inputs;
     World world;
-
-    graphics_init();
-    //load_images();
-    game_init();
+    Graphics graphics;
 
     bool loop = true;
 
@@ -18,15 +15,12 @@ int main() {
         inputs.update();
     	world.update(&inputs);
         
-        clear_screen();
-        render_fps();
+        graphics.clear_screen();
+        graphics.render_fps();
 
-        SDL_RenderPresent(renderer);
+        graphics.present_renderer();
         
     }
-
-    graphics_quit();
-    game_quit();
 
     return 0;
 }

@@ -5,19 +5,27 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
+#include "resources.h"
+
 
 class Graphics {
-	static const std::string RES_DIR;
+
 	static const int WIDTH, HEIGHT;
-	SDL_Window *window;
-	SDL_Renderer *renderer;
+	static const int fps = 60;
+	static Resources resources;
+	static SDL_Window *window;
+	static SDL_Renderer *renderer;
+
 
 	bool init_sdl();
 	bool load_font_texture(SDL_Texture **texture, std::string font, std::string text, SDL_Color text_color);
 
 public:
 	Graphics();
-	void quit();
+	void render_fps();
+	void clear_screen();
+	void present_renderer();
+	~Graphics();
 };
 
 #endif
