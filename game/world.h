@@ -7,7 +7,7 @@
 
 class World {
 	
-	static Clock clock;
+	Clock clock;
 
 public:
 	void update(Inputs *inputs);

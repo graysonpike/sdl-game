@@ -11,10 +11,10 @@
 class Graphics {
 
 	static const int WIDTH, HEIGHT;
-	static const int fps = 60;
-	static Resources resources;
-	static SDL_Window *window;
-	static SDL_Renderer *renderer;
+	int fps;
+	Resources resources;
+	SDL_Window *window;
+	SDL_Renderer *renderer;
 
 
 	bool init_sdl();

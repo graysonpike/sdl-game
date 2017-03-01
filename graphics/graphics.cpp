@@ -1,12 +1,10 @@
 #include "graphics.h"
 
 const int Graphics::WIDTH = 640, Graphics::HEIGHT = 480;
-Resources Graphics::resources(Graphics::renderer);
-SDL_Window* Graphics::window;
-SDL_Renderer* Graphics::renderer;
 
-Graphics::Graphics() {
+Graphics::Graphics() : resources(renderer) {
 	init_sdl();
+	fps = 69;
 }
 
 bool Graphics::init_sdl() {
