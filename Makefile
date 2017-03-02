@@ -1,5 +1,5 @@
-main: main.o graphics.o world.o clock.o resources.o inputs.o
-	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o -lSDL2 -lSDL2_image -lSDL2_ttf
+main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o
+	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o -lSDL2 -lSDL2_image -lSDL2_ttf
 
 main.o: main.cpp
 	g++ -g -c -std=c++11 main.cpp
@@ -22,3 +22,5 @@ game.o: game/game.cpp
 resources.o: graphics/resources.cpp
 	g++ -g -c -std=c++11 graphics/resources.cpp
 
+fps_counter.o : graphics/fps_counter.cpp
+	g++ -g -c -std=c++11 graphics/fps_counter.cpp	

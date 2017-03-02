@@ -12,3 +12,7 @@ void World::update(Inputs *inputs) {
 
     // TODO: Update entities
 }
+
+float World::get_delta() {
+	return clock.get_delta();
+}

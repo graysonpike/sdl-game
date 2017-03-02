@@ -20,7 +20,7 @@ int main() {
         graphics.clear_screen();
         graphics.render_fps();
 
-        graphics.present_renderer();
+        graphics.present_renderer(world.get_delta());
         
     }
 

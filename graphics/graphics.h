@@ -5,13 +5,16 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
-#include "resources.h"
 
+#include "resources.h"
+#include "fps_counter.h"
 
 class Graphics {
 
 	static const int WIDTH, HEIGHT;
-	int fps;
+
+	FPSCounter fps_counter;
+
 	Resources *resources;
 	SDL_Window *window;
 	SDL_Renderer *renderer;
@@ -24,7 +27,7 @@ public:
 	Graphics();
 	void render_fps();
 	void clear_screen();
-	void present_renderer();
+	void present_renderer(float delta);
 	~Graphics();
 };
 

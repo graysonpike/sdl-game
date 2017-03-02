@@ -11,6 +11,7 @@ class World {
 
 public:
 	void update(Inputs *inputs);
+	float get_delta();
 
 };
 
