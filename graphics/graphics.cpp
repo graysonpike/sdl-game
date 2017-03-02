@@ -5,6 +5,7 @@ const int Graphics::WIDTH = 640, Graphics::HEIGHT = 480;
 Graphics::Graphics() {
 	init_sdl();
     resources = new Resources(renderer);
+    resources->load_resources();
 	fps = 69;
 }
 
@@ -60,7 +61,7 @@ bool Graphics::load_font_texture(SDL_Texture **texture, std::string font, std::s
     // TTF_RenderText_Solid = quick & dirty
     // TTF_RenderText_Shaded = slow & antialiased, but with opaque box
     // TTF_RenderText_Blended = very slow & antialiased with alpha blending
-    loaded_surface = TTF_RenderText_Blended(resources.get_font(font), text.c_str(), text_color);
+    loaded_surface = TTF_RenderText_Blended(resources->get_font(font), text.c_str(), text_color);
     if(loaded_surface == NULL) {
         printf("Error loading font surface: %s\n", TTF_GetError());
         return false;

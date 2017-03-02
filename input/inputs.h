@@ -22,9 +22,10 @@ class Inputs {
 	bool check_for_quit(SDL_Event event);
 
 public:
+	Inputs();
 	void update();
 	// Has the ESC key or 'X' button been pressed?
-	void get_quit();
+	bool get_quit();
 	// Key codes defined above
 	bool is_key_down(int key);
 };

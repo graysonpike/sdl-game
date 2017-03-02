@@ -1,6 +1,8 @@
 #include "resources.h"
 #include "graphics.h"
 
+#include <iostream>
+
 const std::string Resources::RES_DIR = "res/";
 
 Resources::Resources(SDL_Renderer *renderer) {

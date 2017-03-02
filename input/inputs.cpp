@@ -1,5 +1,13 @@
 #include "inputs.h"
 
+Inputs::Inputs() {
+    quit = false;
+}
+
+bool Inputs::get_quit() {
+    return quit;
+}
+
 bool Inputs::check_for_quit(SDL_Event event) {
     if(event.type == SDL_QUIT) {
         return true;

@@ -13,6 +13,8 @@ int main() {
     while(loop) {
 
         inputs.update();
+        loop = !inputs.get_quit();
+
     	world.update(&inputs);
         
         graphics.clear_screen();
