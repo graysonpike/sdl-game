@@ -63,7 +63,7 @@ TTF_Font* Resources::get_font(std::string name) {
 }
 
 SDL_Texture* Resources::get_texture(std::string name) {
-    return textures[name]
+    return textures[name];
 }
 
 Resources::~Resources() {

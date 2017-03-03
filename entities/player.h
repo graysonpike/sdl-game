@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "../game/entity.h"
+#include "../game/hitbox.h"
 #include <string>
 
 class Player: public Entity{

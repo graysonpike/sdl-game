@@ -2,18 +2,22 @@
 #define ENTITY_H
 
 #include "hitbox.h"
+#include <string>
 
 class Entity {
 
 protected:
-	int x, y;
+	float x, y;
 	Hitbox *hitbox;
 
 public:
-	Entity();
+	Entity(float x, float y);
 	virtual void update(float delta) = 0;
 	virtual void render(float delta) = 0;
-	virtual Hitbox get_hitbox();
+	virtual std::string get_texture_name() = 0;
+	Hitbox *get_hitbox();
+	float get_x();
+	float get_y();
 };
 
 #endif

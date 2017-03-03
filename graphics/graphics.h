@@ -5,7 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
-#include <list>
+#include <vector>
 
 #include "resources.h"
 #include "fps_counter.h"
@@ -30,7 +30,7 @@ public:
 	void render_fps();
 	void clear_screen();
 	void present_renderer(float delta);
-	void render_entities(std::list<Entity> *entities);
+	void render_entities(std::vector<Entity*> *entities);
 	~Graphics();
 };
 

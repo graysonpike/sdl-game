@@ -1,5 +1,5 @@
-main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o
-	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o -lSDL2 -lSDL2_image -lSDL2_ttf
+main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o entity.o player.o hitbox.o
+	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o entity.o player.o fps_counter.o hitbox.o -lSDL2 -lSDL2_image -lSDL2_ttf
 
 main.o: main.cpp
 	g++ -g -c -std=c++11 main.cpp
@@ -23,4 +23,13 @@ resources.o: graphics/resources.cpp
 	g++ -g -c -std=c++11 graphics/resources.cpp
 
 fps_counter.o : graphics/fps_counter.cpp
-	g++ -g -c -std=c++11 graphics/fps_counter.cpp	
+	g++ -g -c -std=c++11 graphics/fps_counter.cpp
+
+entity.o : game/entity.cpp
+	g++ -g -c -std=c++11 game/entity.cpp
+
+player.o : entities/player.cpp
+	g++ -g -c -std=c++11 entities/player.cpp
+
+hitbox.o : game/hitbox.cpp
+	g++ -g -c -std=c++11 game/hitbox.cpp

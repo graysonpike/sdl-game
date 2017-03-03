@@ -102,10 +102,18 @@ void Graphics::render_fps() {
     SDL_DestroyTexture(text_texture);
 }
 
-void render_entities(std::list<Entity> *entities) {
+void Graphics::render_entities(std::vector<Entity*> *entities) {
     for(int i = 0; i < entities->size(); i++) {
-        SDL_Texture *texture = resources->get_texture((*entities)[i].get_texture_name());
-        SDL_RenderCopy(renderer, resour)
+        int texture_width, texture_height;
+        SDL_Texture *texture = resources->get_texture((*entities)[i]->get_texture_name());
+        SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
+        SDL_Rect dst = {
+            (int)(*entities)[i]->get_x(),
+            (int)(*entities)[i]->get_y(),
+            texture_width,
+            texture_height
+        };
+        SDL_RenderCopy(renderer, texture, NULL, &dst);
     }
 }
 
