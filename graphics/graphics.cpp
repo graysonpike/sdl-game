@@ -102,8 +102,11 @@ void Graphics::render_fps() {
     SDL_DestroyTexture(text_texture);
 }
 
-void render_entities(std::list<Entity> *enities) {
-    // TODO: Render entities
+void render_entities(std::list<Entity> *entities) {
+    for(int i = 0; i < entities->size(); i++) {
+        SDL_Texture *texture = resources->get_texture((*entities)[i].get_texture_name());
+        SDL_RenderCopy(renderer, resour)
+    }
 }
 
 void Graphics::present_renderer(float delta) {

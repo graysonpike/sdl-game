@@ -16,6 +16,8 @@ void Resources::load_resources() {
     load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
 
     // TEXTURES
+    textures["player"] = NULL;
+    load_texture(&textures["player"], "player.png");
 }
 
 bool Resources::load_texture(SDL_Texture **texture, std::string filename){
@@ -56,6 +58,24 @@ bool Resources::load_font(TTF_Font **font, std::string filename, int size) {
     return true;
 }
 
-TTF_Font* Resources::get_font(std::string font) {
-	return fonts[font];
+TTF_Font* Resources::get_font(std::string name) {
+	return fonts[name];
+}
+
+SDL_Texture* Resources::get_texture(std::string name) {
+    return textures[name]
+}
+
+Resources::~Resources() {
+    // Iterate through fonts and free them
+    std::map<std::string, TTF_Font*>::iterator font_it;
+    for(font_it = fonts.begin(); font_it != fonts.end(); font_it++) {
+        TTF_CloseFont(font_it->second);
+    }
+
+    // Iterate through textures and free them
+    std::map<std::string, SDL_Texture*>::iterator texture_it;
+    for(texture_it = textures.begin(); texture_it != textures.end(); texture_it++) {
+        SDL_DestroyTexture(texture_it->second);
+    }
 }

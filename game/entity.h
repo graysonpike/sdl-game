@@ -11,8 +11,8 @@ protected:
 
 public:
 	Entity();
-	virtual void update(float delta);
-	virtual void render(float delta);
+	virtual void update(float delta) = 0;
+	virtual void render(float delta) = 0;
 	virtual Hitbox get_hitbox();
 };
 
