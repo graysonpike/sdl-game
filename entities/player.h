@@ -3,6 +3,7 @@
 
 #include "../game/entity.h"
 #include "../game/hitbox.h"
+#include "../input/inputs.h"
 #include <string>
 
 class Player: public Entity{
@@ -15,6 +16,7 @@ public:
 	void update(float delta);
 	void render(float delta);
 	std::string get_texture_name();
+	void handle_inputs(Inputs *inputs);
 	~Player();
 };
 

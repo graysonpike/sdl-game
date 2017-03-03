@@ -23,3 +23,7 @@ void Player::update(float delta) {
 void Player::render(float delta) {
 	return;
 }
+
+void Player::handle_inputs(Inputs *inputs) {
+	// TODO: Move player
+}
