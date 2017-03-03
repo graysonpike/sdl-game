@@ -16,3 +16,7 @@ void World::update(Inputs *inputs) {
 float World::get_delta() {
 	return clock.get_delta();
 }
+
+std::list<Entity> *World::get_entities() {
+	return &entities;
+}

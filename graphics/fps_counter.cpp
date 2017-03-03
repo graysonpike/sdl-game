@@ -1,16 +1,19 @@
 #include "fps_counter.h"
 
-FPSCounter::FPSCounter() : frame_counter(0) {
-
-}
-
-FPSCounter::~FPSCounter() {
-	//die
+FPSCounter::FPSCounter() {
+	frame_counter = 0;
+	update_timer = 0;
+	fps = 0;
 }
 
 void FPSCounter::count(float delta) {
 	frame_times[frame_counter] = delta;
 	frame_counter = (frame_counter + 1) % NUM_FRAMES_SAMPLED;
+	update_timer += delta;
+	if(update_timer > UPDATE_DELAY) {
+		update_timer = 0;
+		fps = get_average();
+	}
 }
 
 float FPSCounter::get_average() {
@@ -19,4 +22,8 @@ float FPSCounter::get_average() {
 		sum += frame_times[i];
 	}
 	return 1 / (sum / NUM_FRAMES_SAMPLED);
+}
+
+float FPSCounter::get_fps() {
+	return fps;
 }

@@ -77,7 +77,7 @@ bool Graphics::load_font_texture(SDL_Texture **texture, std::string font, std::s
     return true;
 }
 
-void Graphics::render_fps(float delta) {
+void Graphics::render_fps() {
 
     // Texture to hold the drawn text
     SDL_Texture *text_texture = NULL;
@@ -85,7 +85,7 @@ void Graphics::render_fps(float delta) {
     int text_height;
     SDL_Color color = {0, 0, 0, 255};
 
-    std::string text = "FPS: " + std::to_string((int)fps_counter.get_average());
+    std::string text = "FPS: " + std::to_string((int)fps_counter.get_fps());
 
     load_font_texture(&text_texture, "inconsolata", text, color);
     SDL_QueryTexture(text_texture, NULL, NULL, &text_width, &text_height);
@@ -100,6 +100,10 @@ void Graphics::render_fps(float delta) {
     SDL_RenderCopy(renderer, text_texture, NULL, &dst);
 
     SDL_DestroyTexture(text_texture);
+}
+
+void render_entities(std::list<Entity> *enities) {
+    // TODO: Render entities
 }
 
 void Graphics::present_renderer(float delta) {

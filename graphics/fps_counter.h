@@ -7,20 +7,18 @@
 
 class FPSCounter {
 
-private:
 	float frame_times[NUM_FRAMES_SAMPLED];
 	int frame_counter;
-
 	float update_timer;
+	float fps;
 
 	float get_average();
 
 public:
 	FPSCounter();
-
 	void count(float delta);
-
-	~FPSCounter();
+	float get_fps();
+	
 };
 
 #endif

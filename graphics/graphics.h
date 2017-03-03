@@ -5,9 +5,11 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <string>
+#include <list>
 
 #include "resources.h"
 #include "fps_counter.h"
+#include "../game/entity.h"
 
 class Graphics {
 
@@ -28,6 +30,7 @@ public:
 	void render_fps();
 	void clear_screen();
 	void present_renderer(float delta);
+	void render_entities(std::list<Entity> *entities);
 	~Graphics();
 };
 
