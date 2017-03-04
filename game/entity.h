@@ -12,12 +12,15 @@ protected:
 
 public:
 	Entity(float x, float y);
-	virtual void update(float delta) = 0;
-	virtual void render(float delta) = 0;
-	virtual std::string get_texture_name() = 0;
 	Hitbox *get_hitbox();
 	float get_x();
 	float get_y();
+	void move_offset(float x, float y);
+
+	virtual ~Entity() = 0;
+	virtual void update(float delta) = 0;
+	virtual void render(float delta) = 0;
+	virtual std::string get_texture_name() = 0;
 };
 
 #endif

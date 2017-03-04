@@ -7,7 +7,7 @@ Hitbox::Hitbox(float x, float y, int w, int h) {
 	this->h = h;
 }
 
-void Hitbox::set_pos(float x, float y) {
-	this->x = x;
-	this->y = y;
+void Hitbox::update_pos(float x, float y) {
+	this->x = x + x_offset;
+	this->y = y + y_offset;
 }

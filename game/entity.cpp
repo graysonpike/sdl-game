@@ -14,5 +14,15 @@ float Entity::get_y() {
 }
 
 Hitbox* Entity::get_hitbox() {
+	hitbox->update_pos(x, y);
 	return hitbox;
+}
+
+void Entity::move_offset(float x, float y) {
+	this->x += x;
+	this->y += y;
+}
+
+Entity::~Entity() {
+	delete hitbox;
 }
