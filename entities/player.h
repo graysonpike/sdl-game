@@ -19,7 +19,6 @@ public:
 	void render(float delta);
 	std::string get_texture_name();
 	void handle_inputs(float delta, Inputs *inputs);
-	~Player();
 };
 
 #endif

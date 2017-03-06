@@ -13,10 +13,6 @@ std::string Player::get_texture_name() {
 	return texture_name;
 }
 
-Player::~Player() {
-	delete hitbox;
-}
-
 void Player::update(float delta) {
 	return;
 }

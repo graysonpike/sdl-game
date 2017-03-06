@@ -1,3 +1,4 @@
+#include <cmath>
 #include "graphics.h"
 
 const int Graphics::WIDTH = 640, Graphics::HEIGHT = 480;
@@ -85,7 +86,8 @@ void Graphics::render_fps() {
     int text_height;
     SDL_Color color = {0, 0, 0, 255};
 
-    std::string text = "FPS: " + std::to_string((int)fps_counter.get_fps());
+    // TODO: Round instead of truncate
+    std::string text = "FPS: " + std::to_string(std::lround(fps_counter.get_fps()));
 
     load_font_texture(&text_texture, "inconsolata", text, color);
     SDL_QueryTexture(text_texture, NULL, NULL, &text_width, &text_height);
