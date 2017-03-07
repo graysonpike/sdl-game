@@ -1,12 +1,18 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include "hitbox.h"
+#include <vector>
 #include <string>
+#include "hitbox.h"
+#include "world.h"
+#include "../graphics/resources.h"
+
+class World;
 
 class Entity {
 
 protected:
+	
 	float x, y;
 	Hitbox *hitbox;
 
@@ -18,8 +24,8 @@ public:
 	void move_offset(float x, float y);
 
 	virtual ~Entity() = 0;
-	virtual void update(float delta) = 0;
-	virtual void render(float delta) = 0;
+	virtual void update(World *world) = 0;
+	virtual void render(SDL_Renderer *renderer, Resources *resources);
 	virtual std::string get_texture_name() = 0;
 };
 

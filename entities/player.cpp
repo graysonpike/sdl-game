@@ -13,13 +13,15 @@ std::string Player::get_texture_name() {
 	return texture_name;
 }
 
-void Player::update(float delta) {
+void Player::update(World *world) {
 	return;
 }
 
+/*
 void Player::render(float delta) {
 	return;
 }
+*/
 
 void Player::handle_inputs(float delta, Inputs *inputs) {
 	if(inputs->is_key_down(KEY_MOVE_UP)) {

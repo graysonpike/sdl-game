@@ -7,6 +7,8 @@
 #include "entity.h"
 #include "../input/inputs.h"
 
+class Entity;
+
 class World {
 	
 	Clock clock;
