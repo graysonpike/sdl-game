@@ -24,8 +24,8 @@ public:
 	void move_offset(float x, float y);
 
 	virtual ~Entity() = 0;
-	virtual void update(World *world) = 0;
-	virtual void render(SDL_Renderer *renderer, Resources *resources);
+	virtual void update(float delta) = 0;
+	virtual void render(SDL_Renderer *renderer, Resources *resources, float delta);
 	virtual std::string get_texture_name() = 0;
 };
 

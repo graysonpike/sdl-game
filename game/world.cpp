@@ -5,7 +5,7 @@
 
 World::World() {
 	entities.push_back(new Player(64, 64));
-    entities.push_back(new Crawler(128, 128));
+    entities.push_back(new Crawler(128, 128, (Player*)entities[0]));
 }
 
 // Main cycle running game logic (inputs, physics, mechanics, etc.)
@@ -20,7 +20,7 @@ void World::update(Inputs *inputs) {
 
     // ENTITIES
     for(int i = 0; i < entities.size(); i++) { 
-    	entities[i]->update(this);
+    	entities[i]->update(clock.get_delta());
     }
 }
 

@@ -15,7 +15,7 @@ class Player: public Entity{
 
 public:
 	Player(float x, float y);
-	void update(World *world);
+	void update(float delta);
 	//void render(float delta);
 	std::string get_texture_name();
 	void handle_inputs(float delta, Inputs *inputs);

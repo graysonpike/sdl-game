@@ -18,6 +18,8 @@ void Resources::load_resources() {
     // TEXTURES
     textures["player"] = NULL;
     load_texture(&textures["player"], "player.png");
+    textures["crawler"] = NULL;
+    load_texture(&textures["crawler"], "crawler.png");
 }
 
 bool Resources::load_texture(SDL_Texture **texture, std::string filename){

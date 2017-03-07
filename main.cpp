@@ -18,7 +18,7 @@ int main() {
     	world.update(&inputs);
         
         graphics.clear_screen();
-        graphics.render_entities(world.get_entities());
+        graphics.render_entities(world.get_entities(), world.get_delta());
         graphics.render_fps();
 
         graphics.present_renderer(world.get_delta());

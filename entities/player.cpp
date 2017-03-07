@@ -13,7 +13,7 @@ std::string Player::get_texture_name() {
 	return texture_name;
 }
 
-void Player::update(World *world) {
+void Player::update(float delta) {
 	return;
 }
 

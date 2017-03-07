@@ -30,7 +30,7 @@ public:
 	void render_fps();
 	void clear_screen();
 	void present_renderer(float delta);
-	void render_entities(std::vector<Entity*> *entities);
+	void render_entities(std::vector<Entity*> *entities, float delta);
 	~Graphics();
 };
 

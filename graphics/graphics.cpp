@@ -104,9 +104,9 @@ void Graphics::render_fps() {
     SDL_DestroyTexture(text_texture);
 }
 
-void Graphics::render_entities(std::vector<Entity*> *entities) {
+void Graphics::render_entities(std::vector<Entity*> *entities, float delta) {
     for(int i = 0; i < entities->size(); i++) {
-        (*entities)[i]->render(renderer, resources);
+        (*entities)[i]->render(renderer, resources, delta);
     }
 }
 
