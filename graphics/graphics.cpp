@@ -1,4 +1,3 @@
-#include <cmath>
 #include "graphics.h"
 
 const int Graphics::WIDTH = 640, Graphics::HEIGHT = 480;
@@ -78,36 +77,14 @@ bool Graphics::load_font_texture(SDL_Texture **texture, std::string font, std::s
     return true;
 }
 
-void Graphics::render_fps() {
-
-    // Texture to hold the drawn text
-    SDL_Texture *text_texture = NULL;
-    int text_width;
-    int text_height;
-    SDL_Color color = {0, 0, 0, 255};
-
-    // TODO: Round instead of truncate
-    std::string text = "FPS: " + std::to_string(std::lround(fps_counter.get_fps()));
-
-    load_font_texture(&text_texture, "inconsolata", text, color);
-    SDL_QueryTexture(text_texture, NULL, NULL, &text_width, &text_height);
-
-    SDL_Rect dst = {
-        16,
-        16,
-        text_width,
-        text_height
-    };
-
-    SDL_RenderCopy(renderer, text_texture, NULL, &dst);
-
-    SDL_DestroyTexture(text_texture);
-}
-
 void Graphics::render_entities(std::vector<Entity*> *entities, float delta) {
     for(int i = 0; i < entities->size(); i++) {
         (*entities)[i]->render(renderer, resources, delta);
     }
+}
+
+void Graphics::render_overlay() {
+    overlay->render_fps(renderer, fps_counter.get_fps());
 }
 
 void Graphics::present_renderer(float delta) {

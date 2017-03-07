@@ -17,12 +17,6 @@ void Player::update(float delta) {
 	return;
 }
 
-/*
-void Player::render(float delta) {
-	return;
-}
-*/
-
 void Player::handle_inputs(float delta, Inputs *inputs) {
 	if(inputs->is_key_down(KEY_MOVE_UP)) {
 		move_offset(0, -speed * delta);
