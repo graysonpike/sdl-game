@@ -16,6 +16,9 @@ std::string Crawler::get_texture_name() {
 }
 
 void Crawler::update(float delta) {
+    // The crawler will move toward the player at a constant speed.
+    // The crawler will move in a direct line towards the player
+
     // If approximate distance is less than moving distance
     // just move to player coords
     float x_dist = player->get_x() - x;
@@ -23,7 +26,9 @@ void Crawler::update(float delta) {
     if(pow(speed * delta, 2) >= x_dist * x_dist + y_dist * y_dist) {
         x = player->get_x();
         y = player->get_y();
-    } else {
+    }
+    // Otherwise, move along the direct line to the player
+    else {
         float angle = atan2(player->get_y() - y, player->get_x() - x);
         x += delta * speed * cos(angle);
         y += delta * speed * sin(angle);

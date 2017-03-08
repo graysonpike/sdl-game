@@ -6,6 +6,7 @@
 #include "../game/hitbox.h"
 #include "player.h"
 
+// Crawler enitiy. Follows player around the screen at a constant speed.
 
 class Crawler: public Entity{
 
@@ -18,7 +19,6 @@ class Crawler: public Entity{
 public:
     Crawler(float x, float y, Player *player);
     void update(float delta);
-    //void render(float delta);
     std::string get_texture_name();
 };
 
