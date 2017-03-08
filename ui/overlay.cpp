@@ -1,8 +1,12 @@
 #include "overlay.h"
 #include <cmath>
 
+Overlay::Overlay(SDL_Renderer *renderer) {
+    this->renderer = renderer;
+}
 
-void Overlay::render_fps(SDL_Renderer *renderer, int fps) {
+
+void Overlay::render_fps(FontRenderer *font_renderer, int fps) {
 
     // Texture to hold the drawn text
     SDL_Texture *text_texture = NULL;
@@ -13,7 +17,7 @@ void Overlay::render_fps(SDL_Renderer *renderer, int fps) {
     // TODO: Round instead of truncate
     std::string text = "FPS: " + std::to_string(std::lround(fps));
 
-    load_font_texture(&text_texture, "inconsolata", text, color);
+    font_renderer->load_font_texture(&text_texture, "inconsolata", text, color);
     SDL_QueryTexture(text_texture, NULL, NULL, &text_width, &text_height);
 
     SDL_Rect dst = {

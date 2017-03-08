@@ -1,5 +1,5 @@
-main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o entity.o player.o hitbox.o crawler.o overlay.o
-	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o entity.o player.o fps_counter.o hitbox.o crawler.o overlay.o -lSDL2 -lSDL2_image -lSDL2_ttf
+main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o entity.o player.o hitbox.o crawler.o overlay.o font_renderer.o
+	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o entity.o player.o fps_counter.o hitbox.o crawler.o overlay.o font_renderer.o -lSDL2 -lSDL2_image -lSDL2_ttf
 
 main.o: main.cpp
 	g++ -g -c -std=c++11 main.cpp
@@ -39,3 +39,6 @@ hitbox.o : game/hitbox.cpp
 
 overlay.o: ui/overlay.cpp
 	g++ -g -c -std=c++11 ui/overlay.cpp	
+
+font_renderer.o: graphics/font_renderer.cpp
+	g++ -g -c -std=c++11 graphics/font_renderer.cpp	

@@ -10,9 +10,11 @@
 #include "resources.h"
 #include "fps_counter.h"
 #include "../game/entity.h"
+#include "font_renderer.h"
 #include "../ui/overlay.h"
 
 class Overlay;
+class FontRenderer;
 
 class Graphics {
 
@@ -21,6 +23,7 @@ class Graphics {
 	FPSCounter fps_counter;
 
 	Resources *resources;
+	FontRenderer *font_renderer;
 	Overlay *overlay;
 	SDL_Window *window;
 	SDL_Renderer *renderer;

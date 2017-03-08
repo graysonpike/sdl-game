@@ -3,10 +3,16 @@
 
 #include "../graphics/graphics.h"
 
+class FontRenderer;
+
 class Overlay {
 
+	SDL_Renderer *renderer;
+
 public:
-	void render_fps(SDL_Renderer *renderer, int fps);
+
+	Overlay(SDL_Renderer *renderer);
+	void render_fps(FontRenderer *font_renderer, int fps);
 
 };
 
