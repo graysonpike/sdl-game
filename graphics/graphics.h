@@ -1,11 +1,11 @@
- #ifndef GRAPHICS_H
+#ifndef GRAPHICS_H
 #define GRAPHICS_H
 
+#include <string>
+#include <vector>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
-#include <string>
-#include <vector>
 
 #include "resources.h"
 #include "fps_counter.h"
@@ -18,11 +18,11 @@ class FontRenderer;
 
 class Graphics {
 
+	// Width and heigh of the window in px
 	static const int WIDTH, HEIGHT;
 
-	FPSCounter fps_counter;
-
 	Resources *resources;
+	FPSCounter fps_counter;
 	FontRenderer *font_renderer;
 	Overlay *overlay;
 	SDL_Window *window;

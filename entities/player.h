@@ -12,6 +12,7 @@ class Player: public Entity{
     static const std::string texture_name;
 	// Speed in px/sec
 	float speed;
+	int health;
 
 public:
 	Player(float x, float y);
@@ -19,6 +20,7 @@ public:
 	// void render(float delta);
 	std::string get_texture_name();
 	void handle_inputs(float delta, Inputs *inputs);
+	int get_health();
 };
 
 #endif
