@@ -8,6 +8,7 @@ Player::Player(float x, float y) : Entity(x, y) {
 	hitbox = new Hitbox(x, y, w, h);
 	speed = 200;
 	health = 3;
+	max_health = 5;
 }
 
 std::string Player::get_texture_name() {
@@ -34,4 +35,8 @@ void Player::handle_inputs(float delta, Inputs *inputs) {
 
 int Player::get_health() {
 	return health;
+}
+
+int Player::get_max_health() {
+	return max_health;
 }

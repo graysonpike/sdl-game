@@ -1,4 +1,5 @@
 #include "graphics.h"
+#include "../entities/player.h"
 
 const int Graphics::WIDTH = 640, Graphics::HEIGHT = 480;
 
@@ -7,7 +8,7 @@ Graphics::Graphics() {
     resources = new Resources(renderer);
     resources->load_resources();
     font_renderer = new FontRenderer(renderer, resources);
-    overlay = new Overlay(renderer);
+    overlay = new Overlay(WIDTH, HEIGHT, renderer, resources);
     fps_counter = FPSCounter();
 }
 
@@ -62,8 +63,10 @@ void Graphics::render_entities(std::vector<Entity*> *entities, float delta) {
     }
 }
 
-void Graphics::render_overlay() {
+void Graphics::render_overlay(std::vector<Entity*> *entities) {
+    Player *player = (Player*)(*entities)[0];
     overlay->render_fps(font_renderer, lround(fps_counter.get_fps()));
+    overlay->render_health(player->get_health(), player->get_max_health());
 }
 
 void Graphics::present_renderer(float delta) {

@@ -1,8 +1,11 @@
 #include "overlay.h"
 #include <cmath>
 
-Overlay::Overlay(SDL_Renderer *renderer) {
+Overlay::Overlay(int width, int height, SDL_Renderer *renderer, Resources *resources) {
     this->renderer = renderer;
+    this->resources = resources;
+    this->width = width;
+    this->height = height;
 }
 
 
@@ -30,4 +33,24 @@ void Overlay::render_fps(FontRenderer *font_renderer, int fps) {
     SDL_RenderCopy(renderer, text_texture, NULL, &dst);
 
     SDL_DestroyTexture(text_texture);
+}
+
+void Overlay::render_health(int health, int max_health) {
+    // Get textures to be used: full and empty heart icons
+    SDL_Texture *full_heart = resources->get_texture("full_heart");
+    SDL_Texture *empty_heart = resources->get_texture("empty_heart");
+    // Draw hearts from top left of screen
+    for(int i = 0; i < max_health; i++) {
+        SDL_Rect dst = {
+            width - i * (32 + 16) - 16 - 32,
+            16,
+            32,
+            32
+        };
+        if(health < i+1) {
+            SDL_RenderCopy(renderer, empty_heart, NULL, &dst);
+        } else {
+            SDL_RenderCopy(renderer, full_heart, NULL, &dst);
+        }
+    }
 }

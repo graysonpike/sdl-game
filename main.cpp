@@ -19,7 +19,7 @@ int main() {
         
         graphics.clear_screen();
         graphics.render_entities(world.get_entities(), world.get_delta());
-        graphics.render_overlay();
+        graphics.render_overlay(world.get_entities());
 
         graphics.present_renderer(world.get_delta());
         

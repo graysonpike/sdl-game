@@ -20,6 +20,10 @@ void Resources::load_resources() {
     load_texture(&textures["player"], "player.png");
     textures["crawler"] = NULL;
     load_texture(&textures["crawler"], "crawler.png");
+    textures["full_heart"] = NULL;
+    load_texture(&textures["full_heart"], "full_heart.png");
+    textures["empty_heart"] = NULL;
+    load_texture(&textures["empty_heart"], "empty_heart.png");
 }
 
 bool Resources::load_texture(SDL_Texture **texture, std::string filename){
