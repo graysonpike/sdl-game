@@ -13,6 +13,11 @@ class Player: public Entity {
 	// Speed in px/sec
 	float speed;
 	int health, max_health;
+	// 3-state boolean of player movement (for animations)
+	// -1 -> left, up
+	//  0 -> not moving
+	//  1 -> right, down
+	int moved_horizontal, moved_vertical;
 
 public:
 	Player(float x, float y);
