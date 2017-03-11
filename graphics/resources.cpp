@@ -16,8 +16,8 @@ void Resources::load_resources() {
     load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
 
     // TEXTURES
-    textures["player"] = NULL;
-    load_texture(&textures["player"], "player.png");
+    //textures["player"] = NULL;
+    //load_texture(&textures["player"], "player.png");
     textures["crawler"] = NULL;
     load_texture(&textures["crawler"], "crawler.png");
     textures["full_heart"] = NULL;
