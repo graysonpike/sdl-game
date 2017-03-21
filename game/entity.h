@@ -25,8 +25,7 @@ public:
 
 	virtual ~Entity() = 0;
 	virtual void update(float delta) = 0;
-	virtual void render(SDL_Renderer *renderer, Resources *resources, float delta);
-	virtual std::string get_texture_name() = 0;
+	virtual void render(SDL_Renderer *renderer, Resources *resources, float delta) = 0;
 };
 
 #endif

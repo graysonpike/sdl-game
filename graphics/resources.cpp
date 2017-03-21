@@ -16,14 +16,7 @@ void Resources::load_resources() {
     load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
 
     // TEXTURES
-    //textures["player"] = NULL;
-    //load_texture(&textures["player"], "player.png");
-    textures["crawler"] = NULL;
-    load_texture(&textures["crawler"], "crawler.png");
-    textures["full_heart"] = NULL;
-    load_texture(&textures["full_heart"], "full_heart.png");
-    textures["empty_heart"] = NULL;
-    load_texture(&textures["empty_heart"], "empty_heart.png");
+    load_texture(&textures["ship1"][1], "ship1.png");
 }
 
 bool Resources::load_texture(SDL_Texture **texture, std::string filename){
@@ -68,8 +61,8 @@ TTF_Font* Resources::get_font(std::string name) {
 	return fonts[name];
 }
 
-SDL_Texture* Resources::get_texture(std::string name) {
-    return textures[name];
+SDL_Texture* Resources::get_texture(std::string name, int frame) {
+    return textures[name][frame];
 }
 
 Resources::~Resources() {
@@ -78,10 +71,15 @@ Resources::~Resources() {
     for(font_it = fonts.begin(); font_it != fonts.end(); font_it++) {
         TTF_CloseFont(font_it->second);
     }
-
+    
     // Iterate through textures and free them
-    std::map<std::string, SDL_Texture*>::iterator texture_it;
-    for(texture_it = textures.begin(); texture_it != textures.end(); texture_it++) {
-        SDL_DestroyTexture(texture_it->second);
+    std::map<std::string, std::map<int, SDL_Texture*> >::iterator frames;
+    for(frames = textures.begin(); frames != textures.end(); frames++) {
+        std::map<int, SDL_Texture*>::iterator frame;
+        for(frame = frames->second.begin(); frame != frames->second.end(); frame++) {
+            //SDL_DestroyTexture(frame->second);
+            frame->second = NULL;
+        }
     }
+    
 }

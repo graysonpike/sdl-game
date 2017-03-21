@@ -5,8 +5,8 @@
 int main() {
 
     Inputs inputs;
-    World world;
     Graphics graphics;
+    World world(graphics.get_width(), graphics.get_height());
 
     bool loop = true;
 

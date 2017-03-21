@@ -66,7 +66,6 @@ void Graphics::render_entities(std::vector<Entity*> *entities, float delta) {
 void Graphics::render_overlay(std::vector<Entity*> *entities) {
     Player *player = (Player*)(*entities)[0];
     overlay->render_fps(font_renderer, lround(fps_counter.get_fps()));
-    overlay->render_health(player->get_health(), player->get_max_health());
 }
 
 void Graphics::present_renderer(float delta) {
@@ -75,7 +74,15 @@ void Graphics::present_renderer(float delta) {
 }
 
 void Graphics::clear_screen() {
-    // Clear the screen with a white background
-    SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+    // Clear the screen with a black background
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 };
+
+int Graphics::get_width() {
+    return WIDTH;
+}
+
+int Graphics::get_height() {
+    return HEIGHT;
+}

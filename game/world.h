@@ -15,7 +15,7 @@ class World {
 	std::vector<Entity*> entities;
 
 public:
-	World();
+	World(int screen_w, int screen_h);
 	void update(Inputs *inputs);
 	float get_delta();
 	std::vector<Entity*> *get_entities();

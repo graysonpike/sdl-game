@@ -1,11 +1,9 @@
 #include <SDL2/SDL.h>
 #include "world.h"
 #include "../entities/player.h"
-#include "../entities/crawler.h"
 
-World::World() {
-	entities.push_back(new Player(64, 64));
-    entities.push_back(new Crawler(128, 128, (Player*)entities[0]));
+World::World(int screen_w, int screen_h) {
+	entities.push_back(new Player(64, 64, 1, screen_w, screen_h));
 }
 
 // Main cycle running game logic (inputs, physics, mechanics, etc.)

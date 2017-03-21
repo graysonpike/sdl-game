@@ -9,24 +9,22 @@
 class Player: public Entity {
 
     static const int w, h;
-    static const std::string texture_name;
 	// Speed in px/sec
-	float speed;
-	int health, max_health;
-	// 3-state boolean of player movement (for animations)
-	// -1 -> left, up
-	//  0 -> not moving
-	//  1 -> right, down
-	int moved_horizontal, moved_vertical;
+	float vx, vy;
+	float turn_speed, linear_accel;
+	float max_speed;
+	int player_num;
+	float angle;
+	int screen_w, screen_h;
+
+	float get_center_x();
+	float get_center_y();
 
 public:
-	Player(float x, float y);
+	Player(float x, float y, int player_num, int screen_w, int screen_h);
 	void update(float delta);
 	void render(SDL_Renderer *renderer, Resources *resources, float delta);
-	std::string get_texture_name();
 	void handle_inputs(float delta, Inputs *inputs);
-	int get_health();
-	int get_max_health();
 };
 
 #endif

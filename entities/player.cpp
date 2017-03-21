@@ -1,93 +1,83 @@
 #include "player.h"
+#include <math.h>
 
-const int Player::w = 32;
-const int Player::h = 64;
-const std::string Player::texture_name = "player";
+const int Player::w = 36;
+const int Player::h = 40;
 
-Player::Player(float x, float y) : Entity(x, y) {
-	hitbox = new Hitbox(x, y, w, h);
-	speed = 200;
-	health = 3;
-	max_health = 5;
-	moved_horizontal = 0;
-	moved_vertical = 0;
+Player::Player(float x, float y, int player_num, int screen_w, int screen_h) : Entity(x, y) {
+    hitbox = new Hitbox(x, y, w, h);
+    vx = vy = 0.0f;
+    turn_speed = 3.0f;
+    linear_accel = 300.0f;
+    max_speed = 500.0f;
+    angle = 0;
+    this->player_num = player_num;
+    this->screen_w = screen_w;
+    this->screen_h = screen_h;
 }
 
-std::string Player::get_texture_name() {
-	return texture_name;
+float Player::get_center_x() {
+    return x + w/2;
+}
+
+float Player::get_center_y() {
+    return y + h/2;
 }
 
 void Player::update(float delta) {
-	return;
+    // Apply change in x and y directions
+    x += delta * vx;
+    y += delta * vy;
+    // Enforce speed limit
+    if(vx > max_speed) {
+        vx = max_speed;
+    }
+    if(vy > max_speed) {
+        vy = max_speed;
+    }
+    if(vx < -max_speed) {
+        vx = -max_speed;
+    }
+    if(vy < -max_speed) {
+        vy = -max_speed;
+    }
+    // Check for going out of bounds
+    if(this->get_center_x() < 0) {
+        x = screen_w - w/2;
+    } else if (this->get_center_x() > screen_w) {
+        x = 0 - w/2;
+    }
+    if(this->get_center_y() < 0) {
+        y = screen_h - h/2;
+    } else if (this->get_center_y() > screen_h) {
+        y = 0 - h/2;
+    }
 }
 
 void Player::render(SDL_Renderer *renderer, Resources *resources, float delta) {
-
-	// BODY
-	// To create a jiggly walking motion, oscillating sine function is used
-	// as a modifier to the width
-	float width_modifier;
-	if(moved_horizontal != 0 || moved_vertical != 0) {
-		width_modifier = sin(SDL_GetTicks() / 40.0f);
-	} else {
-		width_modifier = 0;
-	}
-	int width_change = (int) 2 * width_modifier;
-	SDL_Rect body = {
-		(int)x - width_change,
-		(int)y,
-		w + (width_change * 2),
-		h
-	};
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderFillRect(renderer, &body);
-
-	// EYES
-	int eye_x_offset = moved_horizontal;
-	int eye_y_offset = moved_vertical;
-	SDL_Rect left_eye = {
-		(int) x + 7 + eye_x_offset,
-		(int) y + 10 + eye_y_offset,
-		5,
-		15
-	};
-	SDL_Rect right_eye = {
-		(int) x + w - 5 - 7 + eye_x_offset,
-		(int) y + 10 + eye_y_offset,
-		5,
-		15
-	};
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-	SDL_RenderFillRect(renderer, &left_eye);
-	SDL_RenderFillRect(renderer, &right_eye);
-
-	// Reset moved states
-	moved_horizontal = 0;
-	moved_vertical = 0;
+    int texture_width, texture_height;
+    SDL_Texture *texture = resources->get_texture("ship1", 1);
+    SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
+    SDL_Rect dst = {
+        (int)x,
+        (int)y,
+        texture_width,
+        texture_height
+    };
+    SDL_RenderCopyEx(renderer, texture, NULL, &dst, angle / M_PI * 180 + 90, NULL, SDL_FLIP_NONE);
 }
 
 void Player::handle_inputs(float delta, Inputs *inputs) {
-	float distance = speed * delta;
-	if(inputs->is_key_down(KEY_MOVE_UP)) {
-		move_offset(0, -distance);
-		moved_vertical = -1;
-	} else if (inputs->is_key_down(KEY_MOVE_DOWN)) {
-		move_offset(0, distance);
-		moved_vertical = 1;
-	}
-	if(inputs->is_key_down(KEY_MOVE_LEFT)) {
-		move_offset(-distance, 0);
-		moved_horizontal = -1;
-	} else if (inputs->is_key_down(KEY_MOVE_RIGHT)) {
-		move_offset(distance, 0);
-		moved_horizontal = 1;
-	}
-}
-
-int Player::get_health() {
-	return health;
-}
-
-int Player::get_max_health() {
-	return max_health;
+    if(inputs->is_key_down(KEY_MOVE_UP)) {
+        vx += delta * linear_accel * cos(angle);
+        vy += delta * linear_accel * sin(angle);
+    } else if (inputs->is_key_down(KEY_MOVE_DOWN)) {
+        vx -= delta * linear_accel * cos(angle);
+        vy -= delta * linear_accel * sin(angle);
+    }
+    if(inputs->is_key_down(KEY_MOVE_LEFT)) {
+        angle -= delta * turn_speed;
+    } else if (inputs->is_key_down(KEY_MOVE_RIGHT)) {
+        angle += delta * turn_speed;
+    }
 }

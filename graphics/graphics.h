@@ -37,6 +37,8 @@ public:
 	void render_overlay(std::vector<Entity*> *entities);
 	void present_renderer(float delta);
 	void render_entities(std::vector<Entity*> *entities, float delta);
+	int get_width();
+	int get_height();
 	~Graphics();
 };
 
