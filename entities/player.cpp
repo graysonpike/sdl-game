@@ -57,6 +57,13 @@ void Player::update(float delta) {
     } else if (this->get_center_y() > screen_h) {
         y = 0 - h/2;
     }
+    // Timers
+    if(missile_cooldown > 0) {
+        missile_cooldown -= delta;
+        if(missile_cooldown < 0) {
+            missile_cooldown = 0;
+        }
+    }
 }
 
 void Player::render(SDL_Renderer *renderer, Resources *resources, float delta) {
@@ -87,7 +94,8 @@ void Player::handle_inputs(float delta, Inputs *inputs) {
         angle += delta * turn_speed;
     }
     // Shooting
-    if(inputs->is_key_down(KEY_FIRE_MISSILE)) {
+    if(inputs->is_key_down(KEY_FIRE_MISSILE) && missile_cooldown == 0) {
+        missile_cooldown = MISSILE_DELAY;
         float speed = 100;
         entities->push_back(new Missile(x, y, speed, angle, screen_w, screen_h));
     }
