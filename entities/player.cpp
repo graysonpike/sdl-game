@@ -1,19 +1,24 @@
-#include "player.h"
 #include <math.h>
+#include "player.h"
+#include "missile.h"
+
+#define MISSILE_DELAY (0.5f)
 
 const int Player::w = 36;
 const int Player::h = 40;
 
-Player::Player(float x, float y, int player_num, int screen_w, int screen_h) : Entity(x, y) {
+Player::Player(float x, float y, int player_num, int screen_w, int screen_h, std::vector<Entity*> *entities) : Entity(x, y) {
     hitbox = new Hitbox(x, y, w, h);
     vx = vy = 0.0f;
     turn_speed = 3.0f;
     linear_accel = 300.0f;
     max_speed = 500.0f;
     angle = 0;
+    missile_cooldown = 0.0f;
     this->player_num = player_num;
     this->screen_w = screen_w;
     this->screen_h = screen_h;
+    this->entities = entities;
 }
 
 float Player::get_center_x() {
@@ -68,6 +73,7 @@ void Player::render(SDL_Renderer *renderer, Resources *resources, float delta) {
 }
 
 void Player::handle_inputs(float delta, Inputs *inputs) {
+    // Movement Controls
     if(inputs->is_key_down(KEY_MOVE_UP)) {
         vx += delta * linear_accel * cos(angle);
         vy += delta * linear_accel * sin(angle);
@@ -79,5 +85,10 @@ void Player::handle_inputs(float delta, Inputs *inputs) {
         angle -= delta * turn_speed;
     } else if (inputs->is_key_down(KEY_MOVE_RIGHT)) {
         angle += delta * turn_speed;
+    }
+    // Shooting
+    if(inputs->is_key_down(KEY_FIRE_MISSILE)) {
+        float speed = 100;
+        entities->push_back(new Missile(x, y, speed, angle, screen_w, screen_h));
     }
 }

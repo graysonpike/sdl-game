@@ -3,7 +3,7 @@
 #include "../entities/player.h"
 
 World::World(int screen_w, int screen_h) {
-	entities.push_back(new Player(64, 64, 1, screen_w, screen_h));
+	entities.push_back(new Player(64, 64, 1, screen_w, screen_h, &entities));
 }
 
 // Main cycle running game logic (inputs, physics, mechanics, etc.)

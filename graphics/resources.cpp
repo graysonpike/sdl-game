@@ -17,6 +17,8 @@ void Resources::load_resources() {
 
     // TEXTURES
     load_texture(&textures["ship1"][1], "ship1.png");
+    load_texture(&textures["ship2"][1], "ship2.png");
+    load_texture(&textures["missile"][1], "missile.png");
 }
 
 bool Resources::load_texture(SDL_Texture **texture, std::string filename){
