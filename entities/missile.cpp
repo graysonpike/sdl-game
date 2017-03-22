@@ -1,7 +1,7 @@
 #include "missile.h"
 #include <math.h>
 
-#define LIFETIME (3.0f)
+#define LIFETIME (3.0f) // (in seconds)
 
 const int Missile::w = 12;
 const int Missile::h = 20;
@@ -52,4 +52,8 @@ void Missile::render(SDL_Renderer *renderer, Resources *resources, float delta) 
         texture_height
     };
     SDL_RenderCopyEx(renderer, texture, NULL, &dst, angle / M_PI * 180 + 90, NULL, SDL_FLIP_NONE);
+}
+
+bool Missile::is_alive() {
+    return time_alive < LIFETIME;
 }

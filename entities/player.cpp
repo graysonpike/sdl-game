@@ -96,7 +96,11 @@ void Player::handle_inputs(float delta, Inputs *inputs) {
     // Shooting
     if(inputs->is_key_down(KEY_FIRE_MISSILE) && missile_cooldown == 0) {
         missile_cooldown = MISSILE_DELAY;
-        float speed = 100;
+        float speed = 500;
         entities->push_back(new Missile(x, y, speed, angle, screen_w, screen_h));
     }
+}
+
+bool Player::is_alive() {
+	return true;
 }

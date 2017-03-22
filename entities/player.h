@@ -30,6 +30,7 @@ public:
 	void update(float delta);
 	void render(SDL_Renderer *renderer, Resources *resources, float delta);
 	void handle_inputs(float delta, Inputs *inputs);
+	bool is_alive();
 };
 
 #endif

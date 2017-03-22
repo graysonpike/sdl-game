@@ -20,6 +20,14 @@ void World::update(Inputs *inputs) {
     for(int i = 0; i < entities.size(); i++) { 
     	entities[i]->update(clock.get_delta());
     }
+
+    // PRUNE ENTITIES
+    for(int i = 0; i < entities.size(); i++) {
+        if(!entities[i]->is_alive()) {
+            entities.erase(entities.begin() + i);
+            i -= 1;
+        }
+    }
 }
 
 float World::get_delta() {

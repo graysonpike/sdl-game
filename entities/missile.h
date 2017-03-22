@@ -21,6 +21,7 @@ public:
     Missile(float x, float y, float speed, float angle, int screen_w, int screen_h);
     void update(float delta);
     void render(SDL_Renderer *renderer, Resources *resources, float delta);
+    bool is_alive();
 };
 
 #endif
