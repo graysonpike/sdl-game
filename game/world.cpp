@@ -4,6 +4,7 @@
 
 World::World(int screen_w, int screen_h) {
 	entities.push_back(new Player(64, 64, 1, screen_w, screen_h, &entities));
+    entities.push_back(new Player(128, 128, 2, screen_w, screen_h, &entities));
 }
 
 // Main cycle running game logic (inputs, physics, mechanics, etc.)
@@ -13,8 +14,10 @@ void World::update(Inputs *inputs) {
     clock.tick();
 
     // INPUT HANDLING
-    // Player is always index 0
+    // Player1 is always index 0
+    // Player2 is always index 1
     ((Player*)entities[0])->handle_inputs(clock.get_delta(), inputs);
+    ((Player*)entities[1])->handle_inputs(clock.get_delta(), inputs);
 
     // ENTITIES
     for(int i = 0; i < entities.size(); i++) { 

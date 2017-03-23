@@ -6,13 +6,14 @@
 const int Missile::w = 12;
 const int Missile::h = 20;
 
-Missile::Missile(float x, float y, float speed, float angle, int screen_w, int screen_h) : Entity(x, y) {
+Missile::Missile(float x, float y, float speed, float angle, int player_num, int screen_w, int screen_h) : Entity(x, y) {
     hitbox = new Hitbox(x, y, w, h);
     time_alive = 0.0f;
     this->speed = speed;
     this->angle = angle;
     this->screen_w = screen_w;
     this->screen_h = screen_h;
+    this->player_num = player_num;
 }
 
 float Missile::get_center_x() {
@@ -43,7 +44,12 @@ void Missile::update(float delta) {
 
 void Missile::render(SDL_Renderer *renderer, Resources *resources, float delta) {
     int texture_width, texture_height;
-    SDL_Texture *texture = resources->get_texture("missile", 1);
+    SDL_Texture *texture;
+    if(player_num == 1) {
+        texture = resources->get_texture("missile1", 1);
+    } else {
+        texture = resources->get_texture("missile2", 1);
+    }
     SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
     SDL_Rect dst = {
         (int)x,

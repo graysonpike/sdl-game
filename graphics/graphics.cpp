@@ -1,7 +1,7 @@
 #include "graphics.h"
 #include "../entities/player.h"
 
-const int Graphics::WIDTH = 640, Graphics::HEIGHT = 480;
+const int Graphics::WIDTH = 800, Graphics::HEIGHT = 800;
 
 Graphics::Graphics() {
 	init_sdl();

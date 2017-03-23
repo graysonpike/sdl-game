@@ -13,12 +13,13 @@ class Missile: public Entity {
     float angle;
     int screen_w, screen_h;
     float time_alive;
+    int player_num;
 
     float get_center_x();
     float get_center_y();
 
 public:
-    Missile(float x, float y, float speed, float angle, int screen_w, int screen_h);
+    Missile(float x, float y, float speed, float angle, int player_num, int screen_w, int screen_h);
     void update(float delta);
     void render(SDL_Renderer *renderer, Resources *resources, float delta);
     bool is_alive();

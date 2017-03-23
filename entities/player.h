@@ -24,6 +24,7 @@ class Player: public Entity {
 	// Helper Functions
 	float get_center_x();
 	float get_center_y();
+	void shoot_missile();
 
 public:
 	Player(float x, float y, int player_num, int screen_w, int screen_h, std::vector<Entity*> *entities);
