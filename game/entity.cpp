@@ -14,7 +14,7 @@ float Entity::get_y() {
 }
 
 Hitbox* Entity::get_hitbox() {
-	hitbox->update_pos(x, y);
+	hitbox->update_pos(x, y, 0);
 	return hitbox;
 }
 

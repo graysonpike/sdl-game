@@ -7,7 +7,7 @@ const int Missile::w = 12;
 const int Missile::h = 20;
 
 Missile::Missile(float x, float y, float speed, float angle, int player_num, int screen_w, int screen_h) : Entity(x, y) {
-    hitbox = new Hitbox(x, y, w, h);
+    hitbox = new Hitbox(0, 0, w, h);
     time_alive = 0.0f;
     this->speed = speed;
     this->angle = angle;

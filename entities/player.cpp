@@ -8,7 +8,7 @@ const int Player::w = 36;
 const int Player::h = 40;
 
 Player::Player(float x, float y, int player_num, int screen_w, int screen_h, std::vector<Entity*> *entities) : Entity(x, y) {
-    hitbox = new Hitbox(x, y, w, h);
+    hitbox = new Hitbox(0, 0, w, h);
     vx = vy = 0.0f;
     turn_speed = 3.0f;
     linear_accel = 300.0f;
@@ -67,6 +67,8 @@ void Player::update(float delta) {
 }
 
 void Player::render(SDL_Renderer *renderer, Resources *resources, float delta) {
+    hitbox->update_pos(x, y, angle);
+    hitbox->render_corners(renderer);
     int texture_width, texture_height;
     SDL_Texture *texture;
     if(player_num == 1) {
