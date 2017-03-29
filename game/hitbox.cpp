@@ -3,14 +3,20 @@
 // Size of rects drawn on corners by render_corners()
 #define POINT_SIZE 6
 
-Hitbox::Hitbox(float x, float y, int w, int h) {
-	this->x = x;
-	this->y = y;
+Hitbox::Hitbox(float x_offset, float y_offset, int w, int h) {
+	this->x_offset = x_offset;
+	this->y_offset = y_offset;
 	this->w = w;
 	this->h = h;
 }
 
+void rotate_point(int *x, int *y, float angle) {
+	*x = (*x) * cos(angle) - (*y) * sin(angle);
+	*y = (*x) * sin(angle) + (*y) * cos(angle);
+}
+
 void Hitbox::update_pos(float x, float y, float angle) {
+	// TODO: Account for offset center
 	angle = -angle;
 	// Apply offsets to new position
 	this->x = x + x_offset;
@@ -18,17 +24,18 @@ void Hitbox::update_pos(float x, float y, float angle) {
 	// Set new angle
 	this->angle = angle;
 	// Calculate new corners
-	tl.x = x;
-	tl.y = y;
 
-	tr.x = x + cos(angle) * w;
-	tr.y = y - sin(angle) * w;
+	// CENTER COORDS
+	float cx = this->x + w / 2.0f;
+	float cy = this->y + h / 2.0f;
+	
+	// BOTTOM RIGHT
+	br.x = w/2;
+	br.y = h/2;
+	rotate_point(&br.x, &br.y, angle);
+	br.x += cx;
+	br.y += cy;
 
-	bl.x = x + sin(angle) * h;
-	bl.y = y + cos(angle) * h;
-
-	br.x = x + cos(angle) * w + sin(angle) * h;
-	br.y = y - sin(angle) * w + cos(angle) * h;
 }
 
 void Hitbox::render_corners(SDL_Renderer * renderer) {
