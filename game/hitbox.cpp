@@ -11,13 +11,15 @@ Hitbox::Hitbox(float x_offset, float y_offset, int w, int h) {
 }
 
 void rotate_point(int *x, int *y, float angle) {
-	*x = (*x) * cos(angle) - (*y) * sin(angle);
-	*y = (*x) * sin(angle) + (*y) * cos(angle);
+	int old_x = *x;
+	int old_y = *y;
+	*x = old_x * cos(angle) - old_y * sin(angle);
+	*y = old_x * sin(angle) + old_y * cos(angle);
 }
 
 void Hitbox::update_pos(float x, float y, float angle) {
 	// TODO: Account for offset center
-	angle = -angle;
+	//angle = -angle;
 	// Apply offsets to new position
 	this->x = x + x_offset;
 	this->y = y + y_offset;
@@ -29,6 +31,27 @@ void Hitbox::update_pos(float x, float y, float angle) {
 	float cx = this->x + w / 2.0f;
 	float cy = this->y + h / 2.0f;
 	
+	// TOP LEFT
+	tl.x = -w/2;
+	tl.y = -h/2;
+	rotate_point(&tl.x, &tl.y, angle);
+	tl.x += cx;
+	tl.y += cy;
+
+	// TOP RIGHT
+	tr.x = w/2;
+	tr.y = -h/2;
+	rotate_point(&tr.x, &tr.y, angle);
+	tr.x += cx;
+	tr.y += cy;
+
+	// BOTTOM LEFT
+	bl.x = -w/2;
+	bl.y = h/2;
+	rotate_point(&bl.x, &bl.y, angle);
+	bl.x += cx;
+	bl.y += cy;
+
 	// BOTTOM RIGHT
 	br.x = w/2;
 	br.y = h/2;
