@@ -5,13 +5,16 @@
 #include <vector>
 #include "clock.h"
 #include "entity.h"
+#include "collision_manager.h"
 #include "../input/inputs.h"
 
 class Entity;
+class CollisionManager;
 
 class World {
 	
 	Clock clock;
+	CollisionManager *collision_manager;
 	std::vector<Entity*> entities;
 
 public:

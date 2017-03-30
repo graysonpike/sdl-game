@@ -14,6 +14,19 @@ Hitbox::Hitbox(float x_offset, float y_offset, int w, int h) {
 	this->y_offset = y_offset;
 	this->w = w;
 	this->h = h;
+	radius = pow(w, 2) + pow(h, 2);
+}
+
+float Hitbox::get_radius() {
+	return radius;
+}
+
+int Hitbox::get_center_x() {
+	return x + w/2.0f;
+}
+
+int Hitbox::get_center_y() {
+	return y + h/2.0f;
 }
 
 // Rotate point around origin by a given angle
@@ -91,4 +104,20 @@ void Hitbox::render_corners(SDL_Renderer * renderer) {
 	SDL_RenderFillRect(renderer, &tr_rect);
 	SDL_RenderFillRect(renderer, &bl_rect);
 	SDL_RenderFillRect(renderer, &br_rect);
+}
+
+SDL_Point Hitbox::get_tl() {
+	return tl;
+}
+
+SDL_Point Hitbox::get_tr() {
+	return tr;
+}
+
+SDL_Point Hitbox::get_bl() {
+	return bl;
+}
+
+SDL_Point Hitbox::get_br() {
+	return br;
 }

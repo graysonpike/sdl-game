@@ -3,6 +3,7 @@
 #include "../entities/player.h"
 
 World::World(int screen_w, int screen_h) {
+    collision_manager = new CollisionManager(&entities);
 	entities.push_back(new Player(64, 64, 1, screen_w, screen_h, &entities));
     entities.push_back(new Player(128, 128, 2, screen_w, screen_h, &entities));
 }
@@ -23,6 +24,9 @@ void World::update(Inputs *inputs) {
     for(int i = 0; i < entities.size(); i++) { 
     	entities[i]->update(clock.get_delta());
     }
+
+    // COLLISION
+    collision_manager->check_collisions();
 
     // PRUNE ENTITIES
     for(int i = 0; i < entities.size(); i++) {
@@ -46,4 +50,6 @@ World::~World() {
 	for(int i = 0; i < entities.size(); i++) { 
     	delete entities[i];
     }
+    // Free collision manager
+    delete collision_manager;
 }

@@ -1,8 +1,8 @@
 clean:
 	rm *.o
 
-main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o entity.o player.o hitbox.o overlay.o font_renderer.o missile.o
-	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o entity.o player.o fps_counter.o hitbox.o overlay.o font_renderer.o missile.o -lSDL2 -lSDL2_image -lSDL2_ttf
+main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o entity.o player.o hitbox.o overlay.o font_renderer.o missile.o collision_manager.o
+	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o entity.o player.o fps_counter.o hitbox.o overlay.o font_renderer.o missile.o collision_manager.o -lSDL2 -lSDL2_image -lSDL2_ttf
 
 main.o: main.cpp
 	g++ -g -c -std=c++11 main.cpp
@@ -45,3 +45,6 @@ overlay.o: ui/overlay.cpp
 
 font_renderer.o: graphics/font_renderer.cpp
 	g++ -g -c -std=c++11 graphics/font_renderer.cpp	
+
+collision_manager.o: game/collision_manager.cpp
+	g++ -g -c -std=c++11 game/collision_manager.cpp	

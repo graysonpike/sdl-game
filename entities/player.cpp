@@ -7,6 +7,30 @@
 const int Player::w = 36;
 const int Player::h = 40;
 
+const int Player::get_id() {
+    return 0;
+}
+
+const bool Player::collides() {
+    return true;
+}
+
+bool Player::does_collide(int id) {
+    return id == 1;
+}
+
+void Player::collide_entity(Entity *entity) {
+    switch(entity->get_id()) {
+        case 1:
+            if(((Missile*)entity)->get_player_num() != player_num) {
+                printf("I am hit!\n");
+            }
+            break;
+        default:
+            break;
+    } 
+}
+
 Player::Player(float x, float y, int player_num, int screen_w, int screen_h, std::vector<Entity*> *entities) : Entity(x, y) {
     hitbox = new Hitbox(0, 0, w, h);
     vx = vy = 0.0f;
@@ -140,4 +164,8 @@ void Player::shoot_missile() {
 
 bool Player::is_alive() {
 	return true;
+}
+
+int Player::get_player_num() {
+    return player_num;
 }

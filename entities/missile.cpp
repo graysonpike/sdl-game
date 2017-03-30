@@ -1,4 +1,5 @@
 #include "missile.h"
+#include "player.h"
 #include <math.h>
 
 #define LIFETIME (3.0f) // (in seconds)
@@ -6,9 +7,32 @@
 const int Missile::w = 12;
 const int Missile::h = 20;
 
+const int Missile::get_id() {
+    return 1;
+}
+
+const bool Missile::collides() {
+    return false;
+}
+
+// Unused functions
+bool Missile::does_collide(int id) { return false; }
+void Missile::collide_entity(Entity *entity) {
+    switch(entity->get_id()) {
+        case 0:
+            if(((Player*)entity)->get_player_num() != player_num) {
+                alive = false;
+            }
+            break;
+        default:
+            break;
+    }
+}
+
 Missile::Missile(float x, float y, float speed, float angle, int player_num, int screen_w, int screen_h) : Entity(x, y) {
     hitbox = new Hitbox(0, 0, w, h);
     time_alive = 0.0f;
+    alive = true;
     this->speed = speed;
     this->angle = angle;
     this->screen_w = screen_w;
@@ -43,6 +67,8 @@ void Missile::update(float delta) {
 }
 
 void Missile::render(SDL_Renderer *renderer, Resources *resources, float delta) {
+    hitbox->update_pos(x, y, angle);
+    hitbox->render_corners(renderer);
     int texture_width, texture_height;
     SDL_Texture *texture;
     if(player_num == 1) {
@@ -61,5 +87,9 @@ void Missile::render(SDL_Renderer *renderer, Resources *resources, float delta) 
 }
 
 bool Missile::is_alive() {
-    return time_alive < LIFETIME;
+    return time_alive < LIFETIME && alive;
+}
+
+int Missile::get_player_num() {
+    return player_num;
 }

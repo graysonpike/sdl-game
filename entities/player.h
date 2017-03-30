@@ -32,6 +32,12 @@ public:
 	void render(SDL_Renderer *renderer, Resources *resources, float delta);
 	void handle_inputs(float delta, Inputs *inputs);
 	bool is_alive();
+	const int get_id();
+	const bool collides();
+	bool does_collide(int id);
+	void collide_entity(Entity *entity);
+	int get_player_num();
+
 };
 
 #endif

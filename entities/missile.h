@@ -14,6 +14,7 @@ class Missile: public Entity {
     int screen_w, screen_h;
     float time_alive;
     int player_num;
+    bool alive;
 
     float get_center_x();
     float get_center_y();
@@ -23,6 +24,11 @@ public:
     void update(float delta);
     void render(SDL_Renderer *renderer, Resources *resources, float delta);
     bool is_alive();
+    const int get_id();
+    const bool collides();
+    bool does_collide(int id);
+    void collide_entity(Entity *entity);
+    int get_player_num();
 };
 
 #endif

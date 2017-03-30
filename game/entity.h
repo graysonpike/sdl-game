@@ -7,6 +7,7 @@
 #include "world.h"
 #include "../graphics/resources.h"
 
+//class CollisionManager;
 class World;
 
 class Entity {
@@ -27,6 +28,10 @@ public:
 	virtual void update(float delta) = 0;
 	virtual void render(SDL_Renderer *renderer, Resources *resources, float delta) = 0;
 	virtual bool is_alive() = 0;
+	virtual const int get_id() = 0;
+	virtual const bool collides() = 0;
+	virtual bool does_collide(int id) = 0;
+	virtual void collide_entity(Entity *entity) = 0;
 };
 
 #endif
