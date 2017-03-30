@@ -5,7 +5,8 @@ CollisionManager::CollisionManager(std::vector<Entity*> *entities) {
 }
 
 float project_point(SDL_Point point, SDL_Point axis) {
-	float multiplier = (point.x * axis.x + point.y + point.y) / (pow(axis.x, 2) + pow(axis.y, 2));
+	float multiplier = (point.x * axis.x + point.y * axis.y) / (pow(axis.x, 2) + pow(axis.y, 2));
+	printf("multiplier = %f\n", multiplier);
 	return multiplier * pow(axis.x, 2) + multiplier * pow(axis.y, 2);
 }
 
@@ -71,6 +72,9 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 }
 
 void CollisionManager::check_collisions() {
+	SDL_Point point = {2, 6};
+	SDL_Point axis = {3, 4};
+	printf("Result: %f\n", project_point(point, axis));
 	for(int i = 0; i < entities->size(); i++) {
 		if((*entities)[i]->collides()) {
 			for(int j = 0; j < entities->size(); j++) {
