@@ -46,6 +46,7 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 		// https://www.gamedev.net/resources/_/technical/game-programming/2d-rotated-rectangle-collision-r2604
 		SDL_Point axis1, axis2, axis3, axis4;
 
+		printf("(%d, %d)\n", h1->get_tl().x, h1->get_tr().y);
 
 		axis1.x = h1->get_tr().x - h1->get_tl().x;
 		axis1.y = h1->get_tr().y - h1->get_tl().y;
@@ -63,8 +64,6 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 		axis4.x = h2->get_tl().x - h2->get_tr().x;
 		axis4.y = h2->get_tl().y - h2->get_tr().y;
 		if(!test_axis(h1, h2, axis4)) { return false; }
-
-		printf("asdfasdf\n");
 
 		return true;
 	}

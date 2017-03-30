@@ -5,7 +5,8 @@
 #define MISSILE_DELAY (0.5f)
 
 const int Player::w = 36;
-const int Player::h = 40;
+//const int Player::h = 40;
+const int Player::h = 200;
 
 const int Player::get_id() {
     return 0;
@@ -23,7 +24,7 @@ void Player::collide_entity(Entity *entity) {
     switch(entity->get_id()) {
         case 1:
             if(((Missile*)entity)->get_player_num() != player_num) {
-                printf("I am hit!\n");
+                // printf("I am hit!\n");
             }
             break;
         default:
