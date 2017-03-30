@@ -89,10 +89,10 @@ void Player::update(float delta) {
             missile_cooldown = 0;
         }
     }
+    hitbox->update_pos(x, y, angle);
 }
 
 void Player::render(SDL_Renderer *renderer, Resources *resources, float delta) {
-    hitbox->update_pos(x, y, angle);
     hitbox->render_corners(renderer);
     int texture_width, texture_height;
     SDL_Texture *texture;

@@ -64,10 +64,10 @@ void Missile::update(float delta) {
     } else if (this->get_center_y() > screen_h) {
         y = 0 - h/2;
     }
+    hitbox->update_pos(x, y, angle);
 }
 
 void Missile::render(SDL_Renderer *renderer, Resources *resources, float delta) {
-    hitbox->update_pos(x, y, angle);
     hitbox->render_corners(renderer);
     int texture_width, texture_height;
     SDL_Texture *texture;
