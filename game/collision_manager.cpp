@@ -4,12 +4,14 @@ CollisionManager::CollisionManager(std::vector<Entity*> *entities) {
 	this->entities = entities;
 }
 
+
+// Returns a scalar value that represents the position of a given point as projected along a given axis
 float project_point(SDL_Point point, SDL_Point axis) {
 	float multiplier = (point.x * axis.x + point.y * axis.y) / (pow(axis.x, 2) + pow(axis.y, 2));
-	printf("multiplier = %f\n", multiplier);
 	return multiplier * pow(axis.x, 2) + multiplier * pow(axis.y, 2);
 }
 
+// Determine minimum and maxiumum scalar values from all corners on a given axis
 void set_min_max(Hitbox* h, SDL_Point axis, float *min, float *max) {
 	float smallest, biggest;
 	smallest = biggest = project_point(h->get_tl(), axis);
@@ -26,7 +28,7 @@ void set_min_max(Hitbox* h, SDL_Point axis, float *min, float *max) {
 	*max = biggest;
 }
 
-// Return true if overlapping
+// Return true if two given hitboxes are overlapping as projected on a given axis
 bool test_axis(Hitbox *h1, Hitbox *h2, SDL_Point axis) {
 	float h1_min, h1_max, h2_min, h2_max;
 	set_min_max(h1, axis, &h1_min, &h1_max);
@@ -34,6 +36,7 @@ bool test_axis(Hitbox *h1, Hitbox *h2, SDL_Point axis) {
 	return (h2_min <= h1_max && h2_min >= h1_min) || (h2_max <= h1_max && h2_max >= h1_min);
 }
 
+// Returns true if two hitboxes are overlapping
 bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 
 	// Check by radius method to avoid expensive Separating Axis Method when possible
@@ -43,11 +46,9 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 	float total_radii = h1->get_radius() + h2->get_radius();
 	if(total_radii > center_distance) {
 
-		// Radius method is inconclusive, measure with Separating Axis Method instead
+		// Radius method is inconclusive, measure with Separating Axis Theorem instead
 		// https://www.gamedev.net/resources/_/technical/game-programming/2d-rotated-rectangle-collision-r2604
 		SDL_Point axis1, axis2, axis3, axis4;
-
-		printf("(%d, %d)\n", h1->get_tl().x, h1->get_tr().y);
 
 		axis1.x = h1->get_tr().x - h1->get_tl().x;
 		axis1.y = h1->get_tr().y - h1->get_tl().y;
@@ -74,7 +75,6 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 void CollisionManager::check_collisions() {
 	SDL_Point point = {2, 6};
 	SDL_Point axis = {3, 4};
-	printf("Result: %f\n", project_point(point, axis));
 	for(int i = 0; i < entities->size(); i++) {
 		if((*entities)[i]->collides()) {
 			for(int j = 0; j < entities->size(); j++) {

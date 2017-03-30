@@ -1,5 +1,6 @@
 #include "missile.h"
 #include "player.h"
+#include "../debug.h"
 #include <math.h>
 
 #define LIFETIME (3.0f) // (in seconds)
@@ -68,7 +69,11 @@ void Missile::update(float delta) {
 }
 
 void Missile::render(SDL_Renderer *renderer, Resources *resources, float delta) {
+
+    #ifdef DEBUG_RENDER_HITBOX_CORNERS
     hitbox->render_corners(renderer);
+    #endif
+
     int texture_width, texture_height;
     SDL_Texture *texture;
     if(player_num == 1) {

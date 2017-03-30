@@ -1,12 +1,12 @@
 #include <math.h>
 #include "player.h"
 #include "missile.h"
+#include "../debug.h"
 
 #define MISSILE_DELAY (0.5f)
 
 const int Player::w = 36;
-//const int Player::h = 40;
-const int Player::h = 200;
+const int Player::h = 40;
 
 const int Player::get_id() {
     return 0;
@@ -93,7 +93,11 @@ void Player::update(float delta) {
 }
 
 void Player::render(SDL_Renderer *renderer, Resources *resources, float delta) {
+	
+	#ifdef DEBUG_RENDER_HITBOX_CORNERS
     hitbox->render_corners(renderer);
+	#endif
+
     int texture_width, texture_height;
     SDL_Texture *texture;
     if(player_num == 1) {
