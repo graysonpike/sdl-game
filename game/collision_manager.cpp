@@ -21,6 +21,8 @@ void set_min_max(Hitbox* h, SDL_Point axis, float *min, float *max) {
 	n = project_point(h->get_br(), axis);
 	if(n > biggest) { biggest = n; }
 	if(n < smallest) { smallest = n; }
+	*min = smallest;
+	*max = biggest;
 }
 
 // Return true if overlapping
@@ -28,10 +30,7 @@ bool test_axis(Hitbox *h1, Hitbox *h2, SDL_Point axis) {
 	float h1_min, h1_max, h2_min, h2_max;
 	set_min_max(h1, axis, &h1_min, &h1_max);
 	set_min_max(h2, axis, &h2_min, &h2_max);
-	if(!(h2_min <= h1_max && h2_max >= h1_max)) {
-		return true;
-	}
-	return false;
+	return (h2_min <= h1_max && h2_min >= h1_min) || (h2_max <= h1_max && h2_max >= h1_min);
 }
 
 bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
