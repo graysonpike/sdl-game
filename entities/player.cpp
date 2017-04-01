@@ -1,6 +1,7 @@
 #include <math.h>
 #include "player.h"
 #include "missile.h"
+#include "explosion.h"
 #include "../debug.h"
 
 #define MISSILE_DELAY (0.5f)
@@ -24,7 +25,7 @@ void Player::collide_entity(Entity *entity) {
     switch(entity->get_id()) {
         case 1:
             if(((Missile*)entity)->get_player_num() != player_num) {
-                // printf("I am hit!\n");
+                spawn_explosion();
             }
             break;
         default:
@@ -165,6 +166,10 @@ void Player::shoot_missile() {
         float speed = 500;
         entities->push_back(new Missile(x, y, speed, angle, player_num, screen_w, screen_h));
     }
+}
+
+void Player::spawn_explosion() {
+    entities->push_back(new Explosion(x + w/2.0f, y + h/2.0f));
 }
 
 bool Player::is_alive() {

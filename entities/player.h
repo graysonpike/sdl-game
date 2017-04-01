@@ -25,6 +25,7 @@ class Player: public Entity {
 	float get_center_x();
 	float get_center_y();
 	void shoot_missile();
+	void spawn_explosion();
 
 public:
 	Player(float x, float y, int player_num, int screen_w, int screen_h, std::vector<Entity*> *entities);
