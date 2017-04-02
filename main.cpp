@@ -1,8 +1,13 @@
+#include <stdlib.h>
+#include <time.h>
 #include "graphics/graphics.h"
 #include "game/world.h"
 #include "input/inputs.h"
 
 int main() {
+
+    // Initialize random seed
+    srand(time(NULL));
 
     Inputs inputs;
     Graphics graphics;

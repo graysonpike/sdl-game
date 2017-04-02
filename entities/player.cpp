@@ -1,10 +1,13 @@
 #include <math.h>
 #include "player.h"
 #include "missile.h"
-#include "explosion.h"
+#include "particle.h"
 #include "../debug.h"
 
-#define MISSILE_DELAY (0.5f)
+// Time between firing missiles
+#define MISSILE_DELAY 0.5f
+// How many particles are spawned when the ship explodes
+#define NUM_PARTICLES 40
 
 const int Player::w = 36;
 const int Player::h = 40;
@@ -38,7 +41,7 @@ Player::Player(float x, float y, int player_num, int screen_w, int screen_h, std
     vx = vy = 0.0f;
     turn_speed = 3.0f;
     linear_accel = 300.0f;
-    max_speed = 500.0f;
+    max_speed = 300.0f;
     angle = 0;
     missile_cooldown = 0.0f;
     this->player_num = player_num;
@@ -169,7 +172,20 @@ void Player::shoot_missile() {
 }
 
 void Player::spawn_explosion() {
-    entities->push_back(new Explosion(x + w/2.0f, y + h/2.0f));
+    for(int i = 0; i < NUM_PARTICLES; i++) {
+        entities->push_back(new Particle(
+            // Center coords on ship
+            x + w/2.0f,
+            y + h/2.0f,
+            // Random vx and vy between -10 and 10
+            ((float)rand()) / RAND_MAX * 40.0f - 20, 
+            ((float)rand()) / RAND_MAX * 40.0f - 20,
+            // Random lifetime between 2 and 4 seconds
+            ((float)rand()) / RAND_MAX * 2.0f + 2,
+            // Random type from 1 to 3
+            (rand() % 3) + 1
+            ));
+    }
 }
 
 bool Player::is_alive() {

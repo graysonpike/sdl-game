@@ -1,16 +1,22 @@
 #include "particle.h"
 
-Particle::Particle(float x, float y) : Entity(x, y) {
+Particle::Particle(float x, float y, float vx, float vy, float lifetime, int type) : Entity(x, y) {
     time_alive = 0.0f;
+    this->vx = vx;
+    this->vy = vy;
+    this->lifetime = lifetime;
+    this->type = type;
 }
 
 void Particle::update(float delta) {
     time_alive += delta;
+    x += vx * delta;
+    y += vy * delta;
 }
 
 void Particle::render(SDL_Renderer *renderer, Resources *resources, float delta) {
     int texture_width, texture_height;
-    SDL_Texture *texture = resources->get_texture("particle", frame);
+    SDL_Texture *texture = resources->get_texture("particle", type);
 
     SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
     SDL_Rect dst = {
