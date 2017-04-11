@@ -31,6 +31,8 @@ void World::update(Inputs *inputs) {
     // PRUNE ENTITIES
     for(int i = 0; i < entities.size(); i++) {
         if(!entities[i]->is_alive()) {
+            delete entities[i];
+            entities[i] = NULL;
             entities.erase(entities.begin() + i);
             i -= 1;
         }
@@ -49,7 +51,9 @@ World::~World() {
 	// Free all entities
 	for(int i = 0; i < entities.size(); i++) { 
     	delete entities[i];
+        entities[i] = NULL;
     }
     // Free collision manager
     delete collision_manager;
+    collision_manager = NULL;
 }
