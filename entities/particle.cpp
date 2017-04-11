@@ -1,23 +1,32 @@
 #include "particle.h"
 
-Particle::Particle(float x, float y, float vx, float vy, float lifetime, int type) : Entity(x, y) {
+Particle::Particle(float x, float y, float vx, float vy, float lifetime,
+                   int type) : Entity(x, y) {
+
     time_alive = 0.0f;
     this->vx = vx;
     this->vy = vy;
     this->lifetime = lifetime;
     this->type = type;
+
 }
 
 void Particle::update(float delta) {
+
     time_alive += delta;
     x += vx * delta;
     y += vy * delta;
+
 }
 
-void Particle::render(SDL_Renderer *renderer, Resources *resources, float delta) {
-    int texture_width, texture_height;
+void Particle::render(SDL_Renderer *renderer, Resources *resources,
+                      float delta) {
+
     float alpha_level = (lifetime - time_alive) / lifetime * 255.0f;
+
     SDL_Texture *texture = resources->get_texture("particle", type);
+
+    int texture_width, texture_height;
     SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
     SDL_Rect dst = {
         (int) (x - texture_width / 2.0f),
@@ -25,8 +34,10 @@ void Particle::render(SDL_Renderer *renderer, Resources *resources, float delta)
         texture_width,
         texture_height
     };
+
     SDL_SetTextureAlphaMod(texture, alpha_level);
     SDL_RenderCopy(renderer, texture, NULL, &dst);
+    
 }
 
 bool Particle::is_alive() {
