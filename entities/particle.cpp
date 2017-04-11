@@ -16,8 +16,8 @@ void Particle::update(float delta) {
 
 void Particle::render(SDL_Renderer *renderer, Resources *resources, float delta) {
     int texture_width, texture_height;
+    float alpha_level = (lifetime - time_alive) / lifetime * 255.0f;
     SDL_Texture *texture = resources->get_texture("particle", type);
-
     SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
     SDL_Rect dst = {
         (int) (x - texture_width / 2.0f),
@@ -25,6 +25,7 @@ void Particle::render(SDL_Renderer *renderer, Resources *resources, float delta)
         texture_width,
         texture_height
     };
+    SDL_SetTextureAlphaMod(texture, alpha_level);
     SDL_RenderCopy(renderer, texture, NULL, &dst);
 }
 

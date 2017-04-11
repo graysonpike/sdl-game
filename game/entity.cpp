@@ -3,6 +3,7 @@
 Entity::Entity(float x, float y) {
 	this->x = x;
 	this->y = y;
+    this->hitbox = NULL;
 }
 
 float Entity::get_x() {
@@ -23,5 +24,7 @@ void Entity::move_offset(float x, float y) {
 }
 
 Entity::~Entity() {
-	delete hitbox;
+    if(hitbox != NULL) {
+        delete hitbox;
+    }
 }

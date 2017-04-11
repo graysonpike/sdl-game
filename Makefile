@@ -1,8 +1,8 @@
 clean:
 	rm *.o
 
-main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o entity.o player.o hitbox.o overlay.o font_renderer.o missile.o collision_manager.o particle.o
-	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o entity.o player.o fps_counter.o hitbox.o overlay.o font_renderer.o missile.o collision_manager.o particle.o -lSDL2 -lSDL2_image -lSDL2_ttf
+main: main.o graphics.o world.o clock.o resources.o inputs.o fps_counter.o entity.o player.o hitbox.o overlay.o font_renderer.o missile.o collision_manager.o particle.o ship_part.o
+	g++ -g -std=c++11 -o main.out main.o graphics.o world.o clock.o resources.o inputs.o entity.o player.o fps_counter.o hitbox.o overlay.o font_renderer.o missile.o collision_manager.o particle.o ship_part.o -lSDL2 -lSDL2_image -lSDL2_ttf
 
 main.o: main.cpp
 	g++ -g -c -std=c++11 main.cpp
@@ -39,6 +39,9 @@ missile.o : entities/missile.cpp
 
 particle.o : entities/particle.cpp
 	g++ -g -c -std=c++11 entities/particle.cpp
+
+ship_part.o : entities/ship_part.cpp
+	g++ -g -c -std=c++11 entities/ship_part.cpp
 
 hitbox.o : game/hitbox.cpp
 	g++ -g -c -std=c++11 game/hitbox.cpp

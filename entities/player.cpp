@@ -2,6 +2,7 @@
 #include "player.h"
 #include "missile.h"
 #include "particle.h"
+#include "ship_part.h"
 #include "../debug.h"
 
 // Time between firing missiles
@@ -184,6 +185,23 @@ void Player::spawn_explosion() {
             ((float)rand()) / RAND_MAX * 2.0f + 2,
             // Random type from 1 to 3
             (rand() % 3) + 1
+            ));
+    }
+    // Create the 4 fragmented pieces of the ship
+    for(int i = 1; i <= 4; i++) {
+        entities->push_back(new ShipPart(
+            // Center coords on ship
+            x + w/2.0f,
+            y + h/2.0f,
+            // Random vx and vy between -10 and 10
+            ((float)rand()) / RAND_MAX * 40.0f - 20, 
+            ((float)rand()) / RAND_MAX * 40.0f - 20,
+            // Random rot_speed between -30 and 30
+            ((float)rand()) / RAND_MAX * 60.0f - 30,
+            // Random lifetime between 3 and 4 seconds
+            ((float)rand()) / RAND_MAX * 2.0f + 3,
+            player_num,
+            i
             ));
     }
 }

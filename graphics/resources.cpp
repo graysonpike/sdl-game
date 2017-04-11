@@ -16,13 +16,24 @@ void Resources::load_resources() {
     load_font(&fonts["inconsolata"], "Inconsolata/Inconsolata-Regular.ttf", 18);
 
     // TEXTURES
-    load_texture(&textures["ship1"][1], "ship1.png");
-    load_texture(&textures["ship2"][1], "ship2.png");
-    load_texture(&textures["missile1"][1], "missile1.png");
-    load_texture(&textures["missile2"][1], "missile2.png");
-    load_texture(&textures["particle"][1], "particle1.png");
-    load_texture(&textures["particle"][2], "particle2.png");
-    load_texture(&textures["particle"][3], "particle3.png");
+    load_texture(&textures["ship1"][1], "ship1/ship1.png");
+    load_texture(&textures["ship1_piece"][1], "ship1/ship1_piece1.png");
+    load_texture(&textures["ship1_piece"][2], "ship1/ship1_piece2.png");
+    load_texture(&textures["ship1_piece"][3], "ship1/ship1_piece3.png");
+    load_texture(&textures["ship1_piece"][4], "ship1/ship1_piece4.png");
+
+    load_texture(&textures["ship2"][1], "ship2/ship2.png");
+    load_texture(&textures["ship2_piece"][1], "ship2/ship2_piece1.png");
+    load_texture(&textures["ship2_piece"][2], "ship2/ship2_piece2.png");
+    load_texture(&textures["ship2_piece"][3], "ship2/ship2_piece3.png");
+    load_texture(&textures["ship2_piece"][4], "ship2/ship2_piece4.png");
+
+    load_texture(&textures["missile1"][1], "missiles/missile1.png");
+    load_texture(&textures["missile2"][1], "missiles/missile2.png");
+
+    load_texture(&textures["particle"][1], "particles/particle1.png");
+    load_texture(&textures["particle"][2], "particles/particle2.png");
+    load_texture(&textures["particle"][3], "particles/particle3.png");
 }
 
 bool Resources::load_texture(SDL_Texture **texture, std::string filename){
@@ -45,6 +56,7 @@ bool Resources::load_texture(SDL_Texture **texture, std::string filename){
     if(texture == NULL) {
         printf("Unable to create texture from surface: %s\n", SDL_GetError());
     }
+    SDL_SetTextureBlendMode(*texture, SDL_BLENDMODE_BLEND);
     // Free the temporary surface
     SDL_FreeSurface(loaded_surface);
     return true;
