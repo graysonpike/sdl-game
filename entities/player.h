@@ -1,11 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <string>
 #include "../game/entity.h"
 #include "../game/hitbox.h"
 #include "../input/inputs.h"
-#include <string>
 
+// The player's spaceship. Moves with velocity and rotation as given by
+// inputs. Can shoot Missiles and die when hit by Missiles from other Players.
 class Player: public Entity {
 
 	// References
@@ -28,7 +30,9 @@ class Player: public Entity {
 	void spawn_explosion();
 
 public:
-	Player(float x, float y, int player_num, int screen_w, int screen_h, std::vector<Entity*> *entities);
+
+	Player(float x, float y, int player_num, int screen_w, int screen_h,
+		   std::vector<Entity*> *entities);
 	void update(float delta);
 	void render(SDL_Renderer *renderer, Resources *resources, float delta);
 	void handle_inputs(float delta, Inputs *inputs);

@@ -30,7 +30,6 @@ public:
     void render(SDL_Renderer *renderer, Resources *resources, float delta);
     bool is_alive();
     const int get_id();
-    // Missiles don't check for collisions
     const bool collides();
     bool does_collide(int id);
     void collide_entity(Entity *entity);

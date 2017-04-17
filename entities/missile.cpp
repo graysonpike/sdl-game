@@ -102,6 +102,7 @@ const int Missile::get_id() {
     return 1;
 }
 
+// Missiles don't check for collisions
 const bool Missile::collides() { return false; }
 
 bool Missile::does_collide(int id) { return false; }
