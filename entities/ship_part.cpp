@@ -1,6 +1,8 @@
 #include "ship_part.h"
 
-ShipPart::ShipPart(float x, float y, float vx, float vy, float rot_speed, float lifetime, int player_num, int type) : Entity(x, y) {
+ShipPart::ShipPart(float x, float y, float vx, float vy, float rot_speed,
+                   float lifetime, int player_num, int type) : Entity(x, y) {
+
     time_alive = 0.0f;
     angle = 0.0f;
     this->vx = vx;
@@ -9,16 +11,21 @@ ShipPart::ShipPart(float x, float y, float vx, float vy, float rot_speed, float 
     this->lifetime = lifetime;
     this->player_num = player_num;
     this->type = type;
+
 }
 
 void ShipPart::update(float delta) {
+
     time_alive += delta;
     x += vx * delta;
     y += vy * delta;
     angle += rot_speed * delta;
+
 }
 
-void ShipPart::render(SDL_Renderer *renderer, Resources *resources, float delta) {
+void ShipPart::render(SDL_Renderer *renderer, Resources *resources,
+                      float delta) {
+
     int texture_width, texture_height;
     float alpha_level = (lifetime - time_alive) / lifetime * 255.0f;
     SDL_Texture *texture;
@@ -37,6 +44,7 @@ void ShipPart::render(SDL_Renderer *renderer, Resources *resources, float delta)
     };
     SDL_SetTextureAlphaMod(texture, (int)alpha_level);
     SDL_RenderCopyEx(renderer, texture, NULL, &dst, angle, NULL, SDL_FLIP_NONE);
+
 }
 
 bool ShipPart::is_alive() {
