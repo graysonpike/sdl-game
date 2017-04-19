@@ -13,9 +13,12 @@ class CollisionManager;
 
 class World {
 	
+    int screen_w, screen_h;
 	Clock clock;
 	CollisionManager *collision_manager;
 	std::vector<Entity*> entities;
+
+    void check_spawn_players();
 
 public:
 

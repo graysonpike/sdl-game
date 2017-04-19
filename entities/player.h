@@ -22,6 +22,7 @@ class Player: public Entity {
 	int player_num;
 	float angle;
 	float missile_cooldown;
+	bool alive;
 
 	// Helper Functions
 	float get_center_x();

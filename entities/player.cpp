@@ -85,6 +85,7 @@ Player::Player(float x, float y, int player_num, int screen_w, int screen_h,
     max_speed = 300.0f;
     angle = 0;
     missile_cooldown = 0.0f;
+    alive = true;
     this->player_num = player_num;
     this->screen_w = screen_w;
     this->screen_h = screen_h;
@@ -212,7 +213,7 @@ void Player::handle_inputs(float delta, Inputs *inputs) {
 }
 
 bool Player::is_alive() {
-    return true;
+    return alive;
 }
 
 const int Player::get_id() {
@@ -234,6 +235,7 @@ void Player::collide_entity(Entity *entity) {
             // If colliding with a Missile, die when it's from another Player
             if(((Missile*)entity)->get_player_num() != player_num) {
                 spawn_explosion();
+                alive = false;
             }
             break;
         default:
