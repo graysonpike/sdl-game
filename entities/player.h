@@ -23,6 +23,8 @@ class Player: public Entity {
 	float angle;
 	float missile_cooldown;
 	bool alive;
+	float time_alive;
+	float invincible_time;
 
 	// Helper Functions
 	float get_center_x();
@@ -31,9 +33,9 @@ class Player: public Entity {
 	void spawn_explosion();
 
 public:
-
+	
 	Player(float x, float y, int player_num, int screen_w, int screen_h,
-		   std::vector<Entity*> *entities);
+		   std::vector<Entity*> *entities, float invincible_time=3.0f);
 	void update(float delta);
 	void render(SDL_Renderer *renderer, Resources *resources, float delta);
 	void handle_inputs(float delta, Inputs *inputs);

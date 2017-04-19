@@ -9,6 +9,8 @@
 #define MISSILE_DELAY 0.5f
 // How many particles are spawned when the ship explodes
 #define NUM_PARTICLES 40
+// Duration between blinks while invincible
+#define BLINK_INTERVAL 0.2f
 
 // STATIC MEMBERS
 
@@ -76,7 +78,8 @@ void Player::spawn_explosion() {
 // PUBLIC FUNCTIONS
 
 Player::Player(float x, float y, int player_num, int screen_w, int screen_h,
-               std::vector<Entity*> *entities) : Entity(x, y) {
+               std::vector<Entity*> *entities, float invincible_time)
+               : Entity(x, y) {
 
     hitbox = new Hitbox(0, 0, w, h);
     vx = vy = 0.0f;
@@ -86,6 +89,7 @@ Player::Player(float x, float y, int player_num, int screen_w, int screen_h,
     angle = 0;
     missile_cooldown = 0.0f;
     alive = true;
+    this->invincible_time = invincible_time;
     this->player_num = player_num;
     this->screen_w = screen_w;
     this->screen_h = screen_h;
@@ -94,6 +98,8 @@ Player::Player(float x, float y, int player_num, int screen_w, int screen_h,
 }
 
 void Player::update(float delta) {
+
+    time_alive += delta;
 
     // Apply change in x and y directions
     x += delta * vx;
@@ -143,24 +149,28 @@ void Player::render(SDL_Renderer *renderer, Resources *resources, float delta) {
     hitbox->render_corners(renderer);
     #endif
 
-    SDL_Texture *texture;
-    if(player_num == 1) {
-        texture = resources->get_texture("ship1", 1);
-    } else {
-        texture = resources->get_texture("ship2", 1);
+    if(time_alive > invincible_time || int(time_alive / BLINK_INTERVAL) % 2 == 0) {
+
+        SDL_Texture *texture;
+        if(player_num == 1) {
+            texture = resources->get_texture("ship1", 1);
+        } else {
+            texture = resources->get_texture("ship2", 1);
+        }
+
+        int texture_width, texture_height;
+        SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
+        SDL_Rect dst = {
+            (int)x,
+            (int)y,
+            texture_width,
+            texture_height
+        };
+
+        SDL_RenderCopyEx(renderer, texture, NULL, &dst, angle / M_PI * 180 + 90,
+                         NULL, SDL_FLIP_NONE);
+
     }
-
-    int texture_width, texture_height;
-    SDL_QueryTexture(texture, NULL, NULL, &texture_width, &texture_height);
-    SDL_Rect dst = {
-        (int)x,
-        (int)y,
-        texture_width,
-        texture_height
-    };
-
-    SDL_RenderCopyEx(renderer, texture, NULL, &dst, angle / M_PI * 180 + 90,
-                     NULL, SDL_FLIP_NONE);
 
 }
 
