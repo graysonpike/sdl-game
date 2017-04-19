@@ -15,6 +15,7 @@ class FPSCounter {
 	float get_average();
 
 public:
+    
 	FPSCounter();
 	void count(float delta);
 	float get_fps();

@@ -1,7 +1,7 @@
 #include "hitbox.h"
 
 // Size of rects drawn on corners by render_corners()
-// Should be an even number
+// Should be an even integer
 #define POINT_SIZE 4
 // Color of rects drawn on corners by render_corners()
 #define POINT_R 255
@@ -9,25 +9,7 @@
 #define POINT_B 255
 #define POINT_A 255
 
-Hitbox::Hitbox(float x_offset, float y_offset, int w, int h) {
-	this->x_offset = x_offset;
-	this->y_offset = y_offset;
-	this->w = w;
-	this->h = h;
-	radius = pow(w, 2) + pow(h, 2);
-}
-
-float Hitbox::get_radius() {
-	return radius;
-}
-
-int Hitbox::get_center_x() {
-	return x + w/2.0f;
-}
-
-int Hitbox::get_center_y() {
-	return y + h/2.0f;
-}
+// HELPER FUNCTIONS
 
 // Rotate point around origin by a given angle
 void rotate_point(int *x, int *y, float angle) {
@@ -37,9 +19,21 @@ void rotate_point(int *x, int *y, float angle) {
 	*y = old_x * sin(angle) + old_y * cos(angle);
 }
 
+// PUBLIC FUNCTIONS
+
+Hitbox::Hitbox(float x_offset, float y_offset, int w, int h) {
+
+	this->x_offset = x_offset;
+	this->y_offset = y_offset;
+	this->w = w;
+	this->h = h;
+	radius = pow(w, 2) + pow(h, 2);
+
+}
+
 // Given new coordinates and angle, update hitbox corners
+// TODO: Account for offset center
 void Hitbox::update_pos(float x, float y, float angle) {
-	// TODO: Account for offset center
 
 	// Apply offsets
 	this->x = x + x_offset;
@@ -104,6 +98,19 @@ void Hitbox::render_corners(SDL_Renderer * renderer) {
 	SDL_RenderFillRect(renderer, &tr_rect);
 	SDL_RenderFillRect(renderer, &bl_rect);
 	SDL_RenderFillRect(renderer, &br_rect);
+
+}
+
+int Hitbox::get_center_x() {
+	return x + w/2.0f;
+}
+
+int Hitbox::get_center_y() {
+	return y + h/2.0f;
+}
+
+float Hitbox::get_radius() {
+	return radius;
 }
 
 SDL_Point Hitbox::get_tl() {

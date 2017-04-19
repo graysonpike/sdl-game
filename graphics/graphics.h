@@ -29,7 +29,6 @@ class Graphics {
 	SDL_Renderer *renderer;
 
 	bool init_sdl();
-	bool load_font_texture(SDL_Texture **texture, std::string font, std::string text, SDL_Color text_color);
 
 public:
 	Graphics();

@@ -11,7 +11,8 @@ class FontRenderer {
 public:
 
 	FontRenderer(SDL_Renderer *renderer, Resources *resources);
-	bool load_font_texture(SDL_Texture **texture, std::string font, std::string text, SDL_Color text_color);
+	bool load_font_texture(SDL_Texture **texture, std::string font,
+                           std::string text, SDL_Color text_color);
 
 };
 

@@ -1,11 +1,14 @@
 #include "overlay.h"
 #include <cmath>
 
-Overlay::Overlay(int width, int height, SDL_Renderer *renderer, Resources *resources) {
+Overlay::Overlay(int width, int height, SDL_Renderer *renderer,
+                 Resources *resources) {
+
     this->renderer = renderer;
     this->resources = resources;
     this->width = width;
     this->height = height;
+
 }
 
 
@@ -17,7 +20,7 @@ void Overlay::render_fps(FontRenderer *font_renderer, int fps) {
     int text_height;
     SDL_Color color = {255, 255, 255, 255};
 
-    // TODO: Round instead of truncate
+    // NOTE: This line causes some mem warning in Valgrind, no idea why
     std::string text = "FPS: " + std::to_string(std::lround(fps));
 
     font_renderer->load_font_texture(&text_texture, "inconsolata", text, color);
@@ -33,4 +36,5 @@ void Overlay::render_fps(FontRenderer *font_renderer, int fps) {
     SDL_RenderCopy(renderer, text_texture, NULL, &dst);
 
     SDL_DestroyTexture(text_texture);
+    
 }

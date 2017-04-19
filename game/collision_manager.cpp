@@ -5,35 +5,52 @@ CollisionManager::CollisionManager(std::vector<Entity*> *entities) {
 }
 
 
-// Returns a scalar value that represents the position of a given point as projected along a given axis
+// Returns a scalar value that represents the position of a given point as
+// projected along a given axis
 float project_point(SDL_Point point, SDL_Point axis) {
-	float multiplier = (point.x * axis.x + point.y * axis.y) / (pow(axis.x, 2) + pow(axis.y, 2));
+
+	float multiplier = (point.x * axis.x + point.y * axis.y) /
+					   (pow(axis.x, 2) + pow(axis.y, 2));
 	return multiplier * pow(axis.x, 2) + multiplier * pow(axis.y, 2);
+
 }
 
-// Determine minimum and maxiumum scalar values from all corners on a given axis
+// Determine minimum and maxiumum scalar values from all corners
+// on a given axis
 void set_min_max(Hitbox* h, SDL_Point axis, float *min, float *max) {
+
 	float smallest, biggest;
+
 	smallest = biggest = project_point(h->get_tl(), axis);
+
 	float n = project_point(h->get_tr(), axis);
 	if(n > biggest) { biggest = n; }
 	if(n < smallest) { smallest = n; }
+
 	n = project_point(h->get_bl(), axis);
 	if(n > biggest) { biggest = n; }
 	if(n < smallest) { smallest = n; }
+
 	n = project_point(h->get_br(), axis);
 	if(n > biggest) { biggest = n; }
 	if(n < smallest) { smallest = n; }
+
 	*min = smallest;
 	*max = biggest;
+
 }
 
-// Return true if two given hitboxes are overlapping as projected on a given axis
+// Return true if two given hitboxes are overlapping as
+// projected on a given axis
 bool test_axis(Hitbox *h1, Hitbox *h2, SDL_Point axis) {
+
 	float h1_min, h1_max, h2_min, h2_max;
+
 	set_min_max(h1, axis, &h1_min, &h1_max);
 	set_min_max(h2, axis, &h2_min, &h2_max);
+
 	return (h2_min <= h1_max && h2_min >= h1_min) || (h2_max <= h1_max && h2_max >= h1_min);
+
 }
 
 // Returns true if two hitboxes are overlapping
@@ -42,6 +59,7 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 	// Check by radius method to avoid expensive Separating Axis Method when possible
 	// Calculate distance of each center
 	float center_distance = pow(h1->get_center_x() - h2->get_center_x(), 2.0f) + pow(h1->get_center_y() - h2->get_center_y(), 2.0f);
+
 	// Add radii from both hitboxes
 	float total_radii = h1->get_radius() + h2->get_radius();
 	if(total_radii > center_distance) {
@@ -69,12 +87,14 @@ bool check_hitboxes(Hitbox *h1, Hitbox *h2) {
 
 		return true;
 	}
+
 	return false;
+
 }
 
+// Check for collisions and notify entities
 void CollisionManager::check_collisions() {
-	SDL_Point point = {2, 6};
-	SDL_Point axis = {3, 4};
+
 	for(int i = 0; i < entities->size(); i++) {
 		if((*entities)[i]->collides()) {
 			for(int j = 0; j < entities->size(); j++) {
@@ -92,4 +112,5 @@ void CollisionManager::check_collisions() {
 			}
 		}
 	}
+
 }

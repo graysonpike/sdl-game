@@ -25,18 +25,18 @@ class Inputs {
 	int mouse_y;
 	// Boolean array for all keys. See above definitions
 	const Uint8 *key_states;
-
 	// Returns true if ESC or 'X' button is pressed
 	bool check_for_quit(SDL_Event event);
 
 public:
+
 	Inputs();
 	void update();
 	// Has the ESC key or 'X' button been pressed?
 	bool get_quit();
 	// Key codes defined above
 	bool is_key_down(int key);
-	bool is_key_down_player(int key, int player_num);
+
 };
 
 #endif

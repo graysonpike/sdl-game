@@ -6,6 +6,7 @@
 // Offsets can be used to place the hitbox more accuratley
 
 class Hitbox {
+
 	float x, y;
 	int x_offset, y_offset, w, h;
 	float angle;
@@ -13,9 +14,10 @@ class Hitbox {
 	SDL_Point tl, tr, bl, br;
 
 public:
+
 	Hitbox(float x_offset, float y_offset, int w, int h);
 	void update_pos(float x, float y, float angle);
-	void render_corners(SDL_Renderer *renderer);
+	void render_corners(SDL_Renderer *renderer); // DEBUG METHOD
 	int get_center_x();
 	int get_center_y();
 	float get_radius();
@@ -23,6 +25,7 @@ public:
 	SDL_Point get_tr();
 	SDL_Point get_bl();
 	SDL_Point get_br();
+
 };
 
 #endif

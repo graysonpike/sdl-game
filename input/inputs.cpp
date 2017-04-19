@@ -1,17 +1,13 @@
 #include "inputs.h"
 
-Inputs::Inputs() {
-    quit = false;
-}
-
-bool Inputs::get_quit() {
-    return quit;
-}
+// PRIAVTE HELPER FUNCTIONS
 
 bool Inputs::check_for_quit(SDL_Event event) {
+
     if(event.type == SDL_QUIT) {
         return true;
     }
+
     if(event.type == SDL_KEYDOWN) {
         switch(event.key.keysym.sym) {
             case SDLK_ESCAPE:
@@ -21,10 +17,23 @@ bool Inputs::check_for_quit(SDL_Event event) {
                 break;
         }
     }
+
     return false;
+
+}
+
+// PUBLIC FUNCTIONS
+
+Inputs::Inputs() {
+    quit = false;
+}
+
+bool Inputs::get_quit() {
+    return quit;
 }
 
 void Inputs::update() {
+
 	key_states = SDL_GetKeyboardState(NULL);
 
 	SDL_Event event;
@@ -45,6 +54,7 @@ void Inputs::update() {
             //handle_mouse_down(event);
         }
     }
+    
 }
 
 bool Inputs::is_key_down(int key) {
