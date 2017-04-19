@@ -71,7 +71,6 @@ void Graphics::clear_screen() {
 
 void Graphics::render_overlay(std::vector<Entity*> *entities) {
 
-    Player *player = (Player*)(*entities)[0];
     overlay->render_fps(font_renderer, lround(fps_counter.get_fps()));
 
 }

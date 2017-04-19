@@ -17,11 +17,12 @@ void World::update(Inputs *inputs) {
     clock.tick();
 
     // Handle input
-    // TODO: Change player input to lookup instead of magic index
-    // Player1 is always index 0
-    // Player2 is always index 1
-    ((Player*)entities[0])->handle_inputs(clock.get_delta(), inputs);
-    ((Player*)entities[1])->handle_inputs(clock.get_delta(), inputs);
+    // Deliver input to each Player
+    for(int i = 0; i < entities.size(); i++) {
+        if(entities[i]->get_id() == 0) {
+            ((Player*)entities[i])->handle_inputs(clock.get_delta(), inputs);
+        }
+    }
 
     // Update entities
     for(int i = 0; i < entities.size(); i++) { 
