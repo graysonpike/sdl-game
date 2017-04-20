@@ -2,7 +2,9 @@
 #include "world.h"
 #include "../entities/player.h"
 
-#define NUM_PLAYERS 2
+// STATIC MEMBERS
+
+const float World::respawn_delay = 3.0f;
 
 // PRIVATE HELPER FUNCTIONS
 
@@ -15,7 +17,7 @@ void World::check_spawn_players() {
         }
     }
     for(int i = 0; i < NUM_PLAYERS; i++) {
-        if(!players_alive[i]) {
+        if(!players_alive[i] && player_respawn_timers[i] == 0) {
             entities.push_back(new Player(64, 64, i+1, screen_w, screen_h, &entities));
         }
     }
@@ -24,7 +26,7 @@ void World::check_spawn_players() {
 
 // PUBLIC FUNCTIONS
 
-World::World(int screen_w, int screen_h) {
+World::World(int screen_w, int screen_h) : player_respawn_timers() {
 
     this->screen_w = screen_w;
     this->screen_h = screen_h;
@@ -62,10 +64,24 @@ void World::update(Inputs *inputs) {
     // Prune dead entities from entites vector
     for(int i = 0; i < entities.size(); i++) {
         if(!entities[i]->is_alive()) {
+            if(entities[i]->get_id() == 0) {
+                player_respawn_timers[
+                    ((Player*)entities[i])->get_player_num()-1] = respawn_delay;
+            }
             delete entities[i];
             entities[i] = NULL;
             entities.erase(entities.begin() + i);
             i -= 1;
+        }
+    }
+
+    // Update player respawn timers
+    for(int i = 0; i < NUM_PLAYERS; i++) {
+        if(player_respawn_timers[i] > 0) {
+            player_respawn_timers[i] -= clock.get_delta();
+            if(player_respawn_timers[i] < 0) {
+                player_respawn_timers[i] = 0;
+            }
         }
     }
 

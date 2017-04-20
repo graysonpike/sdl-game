@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef WORLD_H
+#define WORLD_H
 
 #include <stdbool.h>
 #include <vector>
@@ -8,15 +8,19 @@
 #include "collision_manager.h"
 #include "../input/inputs.h"
 
+#define NUM_PLAYERS 2
+
 class Entity;
 class CollisionManager;
 
 class World {
 	
+    static const float respawn_delay;
     int screen_w, screen_h;
 	Clock clock;
 	CollisionManager *collision_manager;
 	std::vector<Entity*> entities;
+    float player_respawn_timers[NUM_PLAYERS];
 
     void check_spawn_players();
 
