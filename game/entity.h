@@ -14,11 +14,17 @@ class Entity {
 protected:
 
 	float x, y;
+	int w, h;
+	int screen_w, screen_h;
 	Hitbox *hitbox;
+
+	float get_center_x();
+	float get_center_y();
+	void check_bounds();
 
 public:
 
-	Entity(float x, float y);
+	Entity(float x, float y, int w, int h, int screen_w, int screen_h);
 	Hitbox *get_hitbox();
 	float get_x();
 	float get_y();

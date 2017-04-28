@@ -11,16 +11,12 @@
 // screen bounds will wrap to the other side.
 class Missile: public Entity {
 
-    static const int w, h;
     float speed; // Speed in px/sec
     float angle;
     int screen_w, screen_h;
     float time_alive;
     int player_num;
     bool alive;
-
-    float get_center_x();
-    float get_center_y();
 
 public:
 

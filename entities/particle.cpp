@@ -1,7 +1,8 @@
 #include "particle.h"
 
 Particle::Particle(float x, float y, float vx, float vy, float lifetime,
-                   int type) : Entity(x, y) {
+                   int type, int screen_w, int screen_h)
+                   : Entity(x, y, 4, 4, screen_w, screen_h) {
 
     time_alive = 0.0f;
     this->vx = vx;
@@ -16,6 +17,8 @@ void Particle::update(float delta) {
     time_alive += delta;
     x += vx * delta;
     y += vy * delta;
+
+    check_bounds();
 
 }
 

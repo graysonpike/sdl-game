@@ -16,7 +16,8 @@ class Particle: public Entity {
 
 public:
 
-    Particle(float x, float y, float vx, float vy, float lifetime, int type);
+    Particle(float x, float y, float vx, float vy, float lifetime, int type,
+             int screen_w, int screen_h);
     void update(float delta);
     void render(SDL_Renderer *renderer, Resources *resources, float delta);
     bool is_alive();

@@ -12,20 +12,10 @@
 // Duration between blinks while invincible
 #define BLINK_INTERVAL 0.2f
 
-// STATIC MEMBERS
-
-const int Player::w = 36;
-const int Player::h = 40;
+#define WIDTH 36
+#define HEIGHT 40
 
 // PRIVATE HELPER FUNCTIONS
-
-float Player::get_center_x() {
-    return x + w/2;
-}
-
-float Player::get_center_y() {
-    return y + h/2;
-}
 
 void Player::shoot_missile() {
 
@@ -51,7 +41,9 @@ void Player::spawn_explosion() {
             // Random lifetime between 2 and 4 seconds
             ((float)rand()) / RAND_MAX * 2.0f + 2,
             // Random type from 1 to 3
-            (rand() % 3) + 1
+            (rand() % 3) + 1,
+            screen_w,
+            screen_h
             ));
     }
 
@@ -69,7 +61,9 @@ void Player::spawn_explosion() {
             // Random lifetime between 3 and 4 seconds
             ((float)rand()) / RAND_MAX * 2.0f + 3,
             player_num,
-            i
+            i,
+            screen_w,
+            screen_h
             ));
     }
 
@@ -79,8 +73,10 @@ void Player::spawn_explosion() {
 
 Player::Player(float x, float y, int player_num, int screen_w, int screen_h,
                std::vector<Entity*> *entities, float invincible_time)
-               : Entity(x, y) {
+               : Entity(x, y, WIDTH, HEIGHT, screen_w, screen_h) {
 
+    this->w = WIDTH;
+    this->h = HEIGHT;
     hitbox = new Hitbox(0, 0, w, h);
     vx = vy = 0.0f;
     turn_speed = 3.0f;
@@ -91,8 +87,6 @@ Player::Player(float x, float y, int player_num, int screen_w, int screen_h,
     alive = true;
     this->invincible_time = invincible_time;
     this->player_num = player_num;
-    this->screen_w = screen_w;
-    this->screen_h = screen_h;
     this->entities = entities;
 
 }
@@ -119,18 +113,6 @@ void Player::update(float delta) {
         vy = -max_speed;
     }
 
-    // Check for going out of bounds
-    if(this->get_center_x() < 0) {
-        x = screen_w - w/2;
-    } else if (this->get_center_x() > screen_w) {
-        x = 0 - w/2;
-    }
-    if(this->get_center_y() < 0) {
-        y = screen_h - h/2;
-    } else if (this->get_center_y() > screen_h) {
-        y = 0 - h/2;
-    }
-
     // Timers
     if(missile_cooldown > 0) {
         missile_cooldown -= delta;
@@ -138,6 +120,8 @@ void Player::update(float delta) {
             missile_cooldown = 0;
         }
     }
+
+    check_bounds();
 
     hitbox->update_pos(x, y, angle);
 

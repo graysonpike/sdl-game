@@ -12,10 +12,8 @@ class Player: public Entity {
 
 	// References
 	std::vector<Entity*> *entities;
-	int screen_w, screen_h;
 
 	// General Variables
-    static const int w, h;
 	float vx, vy;
 	float turn_speed, linear_accel;
 	float max_speed;
@@ -27,8 +25,6 @@ class Player: public Entity {
 	float invincible_time;
 
 	// Helper Functions
-	float get_center_x();
-	float get_center_y();
 	void shoot_missile();
 	void spawn_explosion();
 

@@ -19,7 +19,8 @@ class ShipPart: public Entity {
 public:
 
     ShipPart(float x, float y, float vx, float vy, float rot_speed,
-             float lifetime, int player_num, int type);
+             float lifetime, int player_num, int type, int screen_w,
+             int screen_h);
     void update(float delta);
     void render(SDL_Renderer *renderer, Resources *resources,
                 float delta);

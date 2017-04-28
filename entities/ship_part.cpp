@@ -1,7 +1,8 @@
 #include "ship_part.h"
 
 ShipPart::ShipPart(float x, float y, float vx, float vy, float rot_speed,
-                   float lifetime, int player_num, int type) : Entity(x, y) {
+                   float lifetime, int player_num, int type, int screen_w,
+                   int screen_h) : Entity(x, y, 4, 4, screen_w, screen_h) {
 
     time_alive = 0.0f;
     angle = 0.0f;
@@ -20,6 +21,8 @@ void ShipPart::update(float delta) {
     x += vx * delta;
     y += vy * delta;
     angle += rot_speed * delta;
+
+    check_bounds();
 
 }
 
