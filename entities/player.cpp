@@ -243,7 +243,7 @@ void Player::collide_entity(Entity *entity) {
     switch(entity->get_id()) {
         case 1:
             // If colliding with a Missile, die when it's from another Player
-            if(time_alive <= invincible_time && ((Missile*)entity)->get_player_num() != player_num) {
+            if(time_alive >= invincible_time && ((Missile*)entity)->get_player_num() != player_num) {
                 spawn_explosion();
                 alive = false;
             }
