@@ -13,7 +13,6 @@ class Missile: public Entity {
 
     float speed; // Speed in px/sec
     float angle;
-    int screen_w, screen_h;
     float time_alive;
     int player_num;
     bool alive;
