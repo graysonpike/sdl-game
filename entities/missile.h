@@ -11,6 +11,9 @@
 // screen bounds will wrap to the other side.
 class Missile: public Entity {
 
+    // References
+    std::vector<Entity*> *entities;
+
     float speed; // Speed in px/sec
     float angle;
     int screen_w, screen_h;
@@ -21,7 +24,7 @@ class Missile: public Entity {
 public:
 
     Missile(float x, float y, float speed, float angle, int player_num,
-            int screen_w, int screen_h);
+            int screen_w, int screen_h, std::vector<Entity*> *entities);
     void update(float delta);
     void render(SDL_Renderer *renderer, Resources *resources, float delta);
     bool is_alive();

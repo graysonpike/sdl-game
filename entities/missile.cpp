@@ -5,13 +5,15 @@
 
 #define LIFETIME (3.0f) // (in seconds)
 
+#define TURNSPEED 2.0f // in rad/sec
+
 #define WIDTH 12
 #define HEIGHT 20
 
 // PUBLIC FUNCTIONS
 
 Missile::Missile(float x, float y, float speed, float angle, int player_num,
-                 int screen_w, int screen_h) : Entity(x, y, WIDTH, HEIGHT,
+                 int screen_w, int screen_h, std::vector<Entity*> *entities) : Entity(x, y, WIDTH, HEIGHT,
                  screen_w, screen_h) {
 
     this->w = WIDTH;
@@ -24,12 +26,43 @@ Missile::Missile(float x, float y, float speed, float angle, int player_num,
     this->screen_w = screen_w;
     this->screen_h = screen_h;
     this->player_num = player_num;
+    this->entities = entities;
 
 }
 
 void Missile::update(float delta) {
 
     time_alive += delta;
+
+    // Steer towards the enemy player
+    for(int i = 0; i < entities->size(); i++) {
+        if((*entities)[i]->get_id() == 0 && ((Player*)(*entities)[i])->get_player_num() != player_num) {
+            float enemy_x = (*entities)[i]->get_x();
+            float enemy_y = (*entities)[i]->get_y();
+
+            float angle_between = atan2(enemy_y - y, enemy_x - x);
+
+            //printf("angle: %f\n", angle_between);
+
+            if(angle < angle_between) {
+                if(angle_between - angle <= M_PI) {
+                    angle += TURNSPEED * delta;
+                } else {
+                    angle -= TURNSPEED * delta;
+                }
+            }
+            else {
+                if(angle - angle_between <= M_PI) {
+                    angle -= TURNSPEED * delta;
+                } else {
+                    angle += TURNSPEED * delta;
+                }
+            }
+
+            //angle = angle_between;
+
+        }
+    }
 
     // Apply change in x and y directions
     x += delta * speed * cos(angle);

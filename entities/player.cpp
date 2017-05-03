@@ -23,7 +23,7 @@ void Player::shoot_missile() {
         missile_cooldown = MISSILE_DELAY;
         float speed = 500;
         entities->push_back(new Missile(x, y, speed, angle, player_num,
-                            screen_w, screen_h));
+                            screen_w, screen_h, entities));
     }
 
 }
