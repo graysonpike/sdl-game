@@ -2,4 +2,10 @@
 
 A simple top-down game written in C++ using SDL2.
 
-Currently being re-written in C++
+### Requirements:
+* `libsdl2-dev`
+* `libsdl2-image-dev`
+* `libsdl2-ttf-dev`
+
+
+On Ubuntu/Debian, run `sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev`
