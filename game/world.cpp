@@ -18,7 +18,12 @@ void World::check_spawn_players() {
     }
     for(int i = 0; i < NUM_PLAYERS; i++) {
         if(!players_alive[i] && player_respawn_timers[i] == 0) {
-            entities.push_back(new Player(64, 64, i+1, screen_w, screen_h, &entities));
+
+            // Create random spawn location
+            int spawn_x = ((float)rand()) / RAND_MAX * (screen_w - 64);
+            int spawn_y = ((float)rand()) / RAND_MAX * (screen_h - 64);
+
+            entities.push_back(new Player(spawn_x, spawn_y, i+1, screen_w, screen_h, &entities));
         }
     }
 
@@ -31,8 +36,8 @@ World::World(int screen_w, int screen_h) : player_respawn_timers() {
     this->screen_w = screen_w;
     this->screen_h = screen_h;
     collision_manager = new CollisionManager(&entities);
-	entities.push_back(new Player(64, 64, 1, screen_w, screen_h, &entities));
-    entities.push_back(new Player(128, 128, 2, screen_w, screen_h, &entities));
+	entities.push_back(new Player(screen_w / 6 + 32, screen_h / 2 - 32, 1, screen_w, screen_h, &entities));
+    entities.push_back(new Player(screen_w * 5 / 6 - 32, screen_h / 2 - 32, 2, screen_w, screen_h, &entities));
 
 }
 
