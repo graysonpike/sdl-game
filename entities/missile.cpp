@@ -35,6 +35,12 @@ void Missile::update(float delta) {
     time_alive += delta;
 
     // Steer towards the enemy player
+    if(angle < -M_PI) {
+        angle = angle + M_PI * 2;
+    } else if(angle > M_PI) {
+        angle = angle - M_PI * 2;
+    }
+
     for(int i = 0; i < entities->size(); i++) {
         if((*entities)[i]->get_id() == 0 && ((Player*)(*entities)[i])->get_player_num() != player_num) {
             float enemy_x = (*entities)[i]->get_x();
@@ -42,24 +48,19 @@ void Missile::update(float delta) {
 
             float angle_between = atan2(enemy_y - y, enemy_x - x);
 
-            //printf("angle: %f\n", angle_between);
-
-            if(angle < angle_between) {
-                if(angle_between - angle <= M_PI) {
+            if(angle > angle_between) {
+                if(angle - angle_between < M_PI) {
+                    angle -= TURNSPEED * delta;
+                } else {
+                    angle += TURNSPEED * delta;
+                }
+            } else {
+                if(angle_between - angle < M_PI) {
                     angle += TURNSPEED * delta;
                 } else {
                     angle -= TURNSPEED * delta;
                 }
             }
-            else {
-                if(angle - angle_between <= M_PI) {
-                    angle -= TURNSPEED * delta;
-                } else {
-                    angle += TURNSPEED * delta;
-                }
-            }
-
-            //angle = angle_between;
 
         }
     }
