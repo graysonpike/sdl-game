@@ -85,9 +85,13 @@ void Resources::load_resources() {
     load_texture(&textures["missile1"][1], "missiles/missile1.png");
     load_texture(&textures["missile2"][1], "missiles/missile2.png");
 
+    load_texture(&textures["laser1"][1], "lasers/laser1.png");
+    load_texture(&textures["laser2"][1], "lasers/laser2.png");
+
     load_texture(&textures["particle"][1], "particles/particle1.png");
     load_texture(&textures["particle"][2], "particles/particle2.png");
     load_texture(&textures["particle"][3], "particles/particle3.png");
+
 
 }
 

@@ -1,18 +1,16 @@
 #include <math.h>
-#include "missile.h"
+#include "laser.h"
 #include "player.h"
 #include "../debug.h"
 
-#define LIFETIME (3.0f) // (in seconds)
-
-#define TURNSPEED 2.0f // in rad/sec
+#define LIFETIME (0.9f) // (in seconds)
 
 #define WIDTH 12
 #define HEIGHT 20
 
 // PUBLIC FUNCTIONS
 
-Missile::Missile(float x, float y, float speed, float angle, int player_num,
+Laser::Laser(float x, float y, float speed, float angle, int player_num,
                  int screen_w, int screen_h, std::vector<Entity*> *entities) : Entity(x, y, WIDTH, HEIGHT,
                  screen_w, screen_h) {
 
@@ -30,42 +28,9 @@ Missile::Missile(float x, float y, float speed, float angle, int player_num,
 
 }
 
-void Missile::update(float delta) {
+void Laser::update(float delta) {
 
     time_alive += delta;
-
-    // Ensure angle is always within (-M_PI, M_PI)
-    if(angle < -M_PI) {
-        angle = angle + M_PI * 2;
-    } else if(angle > M_PI) {
-        angle = angle - M_PI * 2;
-    }
-
-    // Steer towards the enemy player
-    for(int i = 0; i < entities->size(); i++) {
-        // Find enemy position
-        if((*entities)[i]->get_id() == 0 && ((Player*)(*entities)[i])->get_player_num() != player_num) {
-            float enemy_x = (*entities)[i]->get_x();
-            float enemy_y = (*entities)[i]->get_y();
-
-            float angle_between = atan2(enemy_y - y, enemy_x - x);
-
-            if(angle > angle_between) {
-                if(angle - angle_between < M_PI) {
-                    angle -= TURNSPEED * delta;
-                } else {
-                    angle += TURNSPEED * delta;
-                }
-            } else {
-                if(angle_between - angle < M_PI) {
-                    angle += TURNSPEED * delta;
-                } else {
-                    angle -= TURNSPEED * delta;
-                }
-            }
-
-        }
-    }
 
     // Apply change in x and y directions
     x += delta * speed * cos(angle);
@@ -77,7 +42,7 @@ void Missile::update(float delta) {
 
 }
 
-void Missile::render(SDL_Renderer *renderer, Resources *resources,
+void Laser::render(SDL_Renderer *renderer, Resources *resources,
                      float delta) {
 
     // Render hitbox corners if enabled from debug.h
@@ -88,9 +53,9 @@ void Missile::render(SDL_Renderer *renderer, Resources *resources,
     // Choose texture (changes missile color)
     SDL_Texture *texture;
     if(player_num == 1) {
-        texture = resources->get_texture("missile1", 1);
+        texture = resources->get_texture("laser1", 1);
     } else {
-        texture = resources->get_texture("missile2", 1);
+        texture = resources->get_texture("laser2", 1);
     }
 
     int texture_width, texture_height;
@@ -111,20 +76,20 @@ void Missile::render(SDL_Renderer *renderer, Resources *resources,
 
 }
 
-bool Missile::is_alive() {
+bool Laser::is_alive() {
     return time_alive < LIFETIME && alive;
 }
 
-const int Missile::get_id() {
+const int Laser::get_id() {
     return 1;
 }
 
-// Missiles don't check for collisions
-const bool Missile::collides() { return false; }
+// Lasers don't check for collisions
+const bool Laser::collides() { return false; }
 
-bool Missile::does_collide(int id) { return false; }
+bool Laser::does_collide(int id) { return false; }
 
-void Missile::collide_entity(Entity *entity) {
+void Laser::collide_entity(Entity *entity) {
 
     switch(entity->get_id()) {
         case 0:
@@ -138,6 +103,6 @@ void Missile::collide_entity(Entity *entity) {
     
 }
 
-int Missile::get_player_num() {
+int Laser::get_player_num() {
     return player_num;
 }

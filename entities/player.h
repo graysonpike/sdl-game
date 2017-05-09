@@ -20,12 +20,14 @@ class Player: public Entity {
 	int player_num;
 	float angle;
 	float missile_cooldown;
+	float laser_cooldown;
 	bool alive;
 	float time_alive;
 	float invincible_time;
 
 	// Helper Functions
 	void shoot_missile();
+	void shoot_laser();
 	void spawn_explosion();
 
 public:

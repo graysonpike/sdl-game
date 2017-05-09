@@ -1,16 +1,15 @@
-#ifndef MISSILE_H
-#define MISSILE_H
+#ifndef LASER_H
+#define LASER_H
 
 #include "../game/entity.h"
 #include "../game/hitbox.h"
 #include <string>
 
-// Missile that travels from where it was fired at a given
+// Laser that travels in a straight line from where it was fired at a given
 // angle. Dies upon colliding with a Player with a different player_num or
-// after 3 seconds. Does not check for collisions. If the missile moves out of
+// after 3 seconds. Does not check for collisions. If the laser moves out of
 // screen bounds will wrap to the other side.
-// Missiles follow enemy players by turning to face them.
-class Missile: public Entity {
+class Laser: public Entity {
 
     // References
     std::vector<Entity*> *entities;
@@ -23,7 +22,7 @@ class Missile: public Entity {
 
 public:
 
-    Missile(float x, float y, float speed, float angle, int player_num,
+    Laser(float x, float y, float speed, float angle, int player_num,
             int screen_w, int screen_h, std::vector<Entity*> *entities);
     void update(float delta);
     void render(SDL_Renderer *renderer, Resources *resources, float delta);

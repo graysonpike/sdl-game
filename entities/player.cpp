@@ -1,12 +1,15 @@
 #include <math.h>
 #include "player.h"
 #include "missile.h"
+#include "laser.h"
 #include "particle.h"
 #include "ship_part.h"
 #include "../debug.h"
 
 // Time between firing missiles
 #define MISSILE_DELAY 0.5f
+// Time between firing lasers
+#define LASER_DELAY 0.2f
 // How many particles are spawned when the ship explodes
 #define NUM_PARTICLES 40
 // Duration between blinks while invincible
@@ -23,6 +26,17 @@ void Player::shoot_missile() {
         missile_cooldown = MISSILE_DELAY;
         float speed = 500;
         entities->push_back(new Missile(x, y, speed, angle, player_num,
+                            screen_w, screen_h, entities));
+    }
+
+}
+
+void Player::shoot_laser() {
+
+    if(laser_cooldown == 0) {
+        laser_cooldown = LASER_DELAY;
+        float speed = 500;
+        entities->push_back(new Laser(x, y, speed, angle, player_num,
                             screen_w, screen_h, entities));
     }
 
@@ -84,6 +98,7 @@ Player::Player(float x, float y, int player_num, int screen_w, int screen_h,
     max_speed = 300.0f;
     angle = 0;
     missile_cooldown = 0.0f;
+    laser_cooldown = 0.0f;
     alive = true;
     this->invincible_time = invincible_time;
     this->player_num = player_num;
@@ -118,6 +133,12 @@ void Player::update(float delta) {
         missile_cooldown -= delta;
         if(missile_cooldown < 0) {
             missile_cooldown = 0;
+        }
+    }
+    if(laser_cooldown > 0) {
+        laser_cooldown -= delta;
+        if(laser_cooldown < 0) {
+            laser_cooldown = 0;
         }
     }
 
@@ -181,6 +202,9 @@ void Player::handle_inputs(float delta, Inputs *inputs) {
         if(inputs->is_key_down(KEY_P1_FIRE_MISSILE)) {
             shoot_missile();
         }
+        if(inputs->is_key_down(KEY_P1_FIRE_LASER)) {
+            shoot_laser();
+        }
     }
 
     // PLAYER 2
@@ -201,6 +225,9 @@ void Player::handle_inputs(float delta, Inputs *inputs) {
         // Shooting
         if(inputs->is_key_down(KEY_P2_FIRE_MISSILE)) {
             shoot_missile();
+        }
+        if(inputs->is_key_down(KEY_P2_FIRE_LASER)) {
+            shoot_laser();
         }
     }
 
