@@ -24,7 +24,7 @@ void Player::shoot_missile() {
 
     if(missile_cooldown == 0) {
         missile_cooldown = MISSILE_DELAY;
-        float speed = 500;
+        float speed = 400;
         entities->push_back(new Missile(x, y, speed, angle, player_num,
                             screen_w, screen_h, entities));
     }
@@ -35,7 +35,7 @@ void Player::shoot_laser() {
 
     if(laser_cooldown == 0) {
         laser_cooldown = LASER_DELAY;
-        float speed = 500;
+        float speed = 800;
         entities->push_back(new Laser(x, y, speed, angle, player_num,
                             screen_w, screen_h, entities));
     }
