@@ -3,7 +3,7 @@
 #include "player.h"
 #include "../debug.h"
 
-#define LIFETIME (0.9f) // (in seconds)
+#define LIFETIME (1.0f) // (in seconds)
 
 #define WIDTH 12
 #define HEIGHT 20
