@@ -7,7 +7,7 @@
 #include "../debug.h"
 
 // Time between firing missiles
-#define MISSILE_DELAY 0.5f
+#define MISSILE_DELAY 2.0f
 // Time between firing lasers
 #define LASER_DELAY 0.2f
 // How many particles are spawned when the ship explodes
