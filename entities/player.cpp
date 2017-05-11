@@ -247,10 +247,11 @@ const bool Player::collides() {
 
 // Checks for collisions with Missiles
 bool Player::does_collide(int id) {
-    return id == 1;
+    return id == 1 || id == 4;
 }
 
 void Player::collide_entity(Entity *entity) {
+
     switch(entity->get_id()) {
         case 1:
             // If colliding with a Missile, die when it's from another Player
@@ -259,9 +260,17 @@ void Player::collide_entity(Entity *entity) {
                 alive = false;
             }
             break;
+        case 4:
+            // If colliding with a Missile, die when it's from another Player
+            if(time_alive >= invincible_time && ((Laser*)entity)->get_player_num() != player_num) {
+                spawn_explosion();
+                alive = false;
+            }
+            break;
         default:
             break;
-    } 
+    }
+    
 }
 
 int Player::get_player_num() {

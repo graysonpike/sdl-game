@@ -1,14 +1,41 @@
 #include <math.h>
 #include "missile.h"
+#include "laser.h"
 #include "player.h"
+#include "particle.h"
 #include "../debug.h"
 
 #define LIFETIME (3.0f) // (in seconds)
 
 #define TURNSPEED 2.0f // in rad/sec
 
+#define NUM_PARTICLES 10
+
 #define WIDTH 12
 #define HEIGHT 20
+
+// PRIVATE HELPER FUNCTIONS
+
+void Missile::spawn_explosion() {
+
+    for(int i = 0; i < NUM_PARTICLES; i++) {
+        entities->push_back(new Particle(
+            // Center coords on ship
+            x + w/2.0f,
+            y + h/2.0f,
+            // Random vx and vy between -10 and 10
+            ((float)rand()) / RAND_MAX * 40.0f - 20, 
+            ((float)rand()) / RAND_MAX * 40.0f - 20,
+            // Random lifetime between 2 and 4 seconds
+            ((float)rand()) / RAND_MAX * 2.0f + 2,
+            // Random type from 1 to 3
+            (rand() % 3) + 1,
+            screen_w,
+            screen_h
+            ));
+    }
+
+}
 
 // PUBLIC FUNCTIONS
 
@@ -119,10 +146,13 @@ const int Missile::get_id() {
     return 1;
 }
 
-// Missiles don't check for collisions
-const bool Missile::collides() { return false; }
+const bool Missile::collides() {
+    return true;
+}
 
-bool Missile::does_collide(int id) { return false; }
+bool Missile::does_collide(int id) {
+    return id == 4;
+}
 
 void Missile::collide_entity(Entity *entity) {
 
@@ -130,6 +160,13 @@ void Missile::collide_entity(Entity *entity) {
         case 0:
             if(((Player*)entity)->get_player_num() != player_num) {
                 alive = false;
+                this->spawn_explosion();
+            }
+            break;
+        case 4:
+            if(((Laser*)entity)->get_player_num() != player_num) {
+                alive = false;
+                this->spawn_explosion();
             }
             break;
         default:

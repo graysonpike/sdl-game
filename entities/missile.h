@@ -15,11 +15,15 @@ class Missile: public Entity {
     // References
     std::vector<Entity*> *entities;
 
+    // General Variables
     float speed; // Speed in px/sec
     float angle;
     float time_alive;
     int player_num;
     bool alive;
+
+    // Helper Functions
+    void spawn_explosion();
 
 public:
 

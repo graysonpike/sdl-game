@@ -1,11 +1,12 @@
 #include <math.h>
 #include "laser.h"
 #include "player.h"
+#include "missile.h"
 #include "../debug.h"
 
 #define LIFETIME (1.0f) // (in seconds)
 
-#define WIDTH 12
+#define WIDTH 20
 #define HEIGHT 20
 
 // PUBLIC FUNCTIONS
@@ -81,7 +82,7 @@ bool Laser::is_alive() {
 }
 
 const int Laser::get_id() {
-    return 1;
+    return 4;
 }
 
 // Lasers don't check for collisions
@@ -94,6 +95,11 @@ void Laser::collide_entity(Entity *entity) {
     switch(entity->get_id()) {
         case 0:
             if(((Player*)entity)->get_player_num() != player_num) {
+                alive = false;
+            }
+            break;
+        case 1:
+            if(((Missile*)entity)->get_player_num() != player_num) {
                 alive = false;
             }
             break;
