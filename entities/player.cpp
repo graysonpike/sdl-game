@@ -23,6 +23,7 @@
 void Player::shoot_missile() {
 
     if(missile_cooldown == 0) {
+        has_fired = true;
         missile_cooldown = MISSILE_DELAY;
         float speed = 400;
         entities->push_back(new Missile(x, y, speed, angle, player_num,
@@ -34,6 +35,7 @@ void Player::shoot_missile() {
 void Player::shoot_laser() {
 
     if(laser_cooldown == 0) {
+        has_fired = true;
         laser_cooldown = LASER_DELAY;
         float speed = 800;
         entities->push_back(new Laser(x, y, speed, angle, player_num,
@@ -100,6 +102,7 @@ Player::Player(float x, float y, int player_num, int screen_w, int screen_h,
     missile_cooldown = 0.0f;
     laser_cooldown = 0.0f;
     alive = true;
+    has_fired = false;
     this->invincible_time = invincible_time;
     this->player_num = player_num;
     this->entities = entities;
@@ -154,7 +157,7 @@ void Player::render(SDL_Renderer *renderer, Resources *resources, float delta) {
     hitbox->render_corners(renderer);
     #endif
 
-    if(time_alive > invincible_time || int(time_alive / BLINK_INTERVAL) % 2 == 0) {
+    if((time_alive > invincible_time || has_fired) || int(time_alive / BLINK_INTERVAL) % 2 == 0) {
 
         SDL_Texture *texture;
         if(player_num == 1) {
@@ -252,23 +255,25 @@ bool Player::does_collide(int id) {
 
 void Player::collide_entity(Entity *entity) {
 
-    switch(entity->get_id()) {
-        case 1:
-            // If colliding with a Missile, die when it's from another Player
-            if(time_alive >= invincible_time && ((Missile*)entity)->get_player_num() != player_num) {
-                spawn_explosion();
-                alive = false;
-            }
-            break;
-        case 4:
-            // If colliding with a Missile, die when it's from another Player
-            if(time_alive >= invincible_time && ((Laser*)entity)->get_player_num() != player_num) {
-                spawn_explosion();
-                alive = false;
-            }
-            break;
-        default:
-            break;
+    if(time_alive >= invincible_time || has_fired) {
+        switch(entity->get_id()) {
+            case 1:
+                // If colliding with a Missile, die when it's from another Player
+                if(((Missile*)entity)->get_player_num() != player_num) {
+                    spawn_explosion();
+                    alive = false;
+                }
+                break;
+            case 4:
+                // If colliding with a Missile, die when it's from another Player
+                if(((Laser*)entity)->get_player_num() != player_num) {
+                    spawn_explosion();
+                    alive = false;
+                }
+                break;
+            default:
+                break;
+        }
     }
     
 }

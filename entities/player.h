@@ -24,6 +24,7 @@ class Player: public Entity {
 	bool alive;
 	float time_alive;
 	float invincible_time;
+	bool has_fired;
 
 	// Helper Functions
 	void shoot_missile();
